@@ -9,6 +9,7 @@ const User = require('../../models/User');
 
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
+const { json } = require("body-parser");
 
 // router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
 
@@ -104,12 +105,20 @@ router.post('/login', (req, res) => {
 })
 
 
-router.get('/:user_id', (req, res) =>{
+
+router.get('/', (req, res) => {
+  User.find()
+    .sort({ date: -1 })
+    .then(users => res.json(users))
+    .catch(err => res.status(404).json({ noUsers: 'No users found' }));
+});
+
+
+router.get('/:user_id', (req, res) => {
   User.findById(req.params.user_id)
-    .then(user => {
-      
-    }) 
-})
+    .then(user => res.json(user))
+    .catch(err => res.status(404).json({ noUser: "No such user" }))
+});
 
 
 // router.post('/:user_id/follow', (req, res) => {
