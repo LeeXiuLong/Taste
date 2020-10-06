@@ -7,7 +7,6 @@ const passport = require('passport');
 
 const users = require("./routes/api/users");
 
-
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB successfully"))
