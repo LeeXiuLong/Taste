@@ -7,13 +7,12 @@ const passport = require('passport');
 
 const users = require("./routes/api/users");
 
-
 mongoose
-  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(db, { useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.log(err));
 
-// app.get("/", (req, res) => res.send("Hello World!!"));
+app.get("/", (req, res) => res.send("Hello World!!"));
 
 app.use(passport.initialize());
 require('./config/passport')(passport);
