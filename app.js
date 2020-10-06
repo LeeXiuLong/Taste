@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 
 const users = require("./routes/api/users");
+const lists = require("./routes/api/lists");
 
 
 mongoose
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use("/api/users", users);
+app.use("/api/lists", lists); 
 
 
 const port = process.env.PORT || 5000;

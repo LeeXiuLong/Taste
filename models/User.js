@@ -33,6 +33,14 @@ const UserSchema = new Schema({
           ref: 'User' 
         }
       }
+    ], 
+    lists: [
+      {
+        list: {
+          type: Schema.ObjectId, 
+          ref: 'List'
+        }
+      }
     ]
   
   });
