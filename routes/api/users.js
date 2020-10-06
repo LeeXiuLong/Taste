@@ -112,29 +112,77 @@ router.get('/:user_id', (req, res) =>{
 })
 
 
-router.post('/:user_id/follow', (req, res) => {
-  // debugger;
-  // res.json({something: req.params.user_id})
-  User.findById(req.params.user_id) //USER2's ID verification
-    .then(user => {
-      // const currentUser = req.body.currentUser
-      if (user.followers.filter(follower => follower.user.toString() === req.user._id).length > 0) {
-        return res.status(400).json({ alreadyFollowing: "You are already following this user" })
-      }
+// router.post('/:user_id/follow', (req, res) => {
+//   // debugger;
+//   // res.json({something: req.params.user_id})
+//   User.findById(req.params.user_id) //USER2's ID verification
+//     .then(user => {
+//       // const currentUser = req.body.currentUser
+//       if (user.followers.filter(follower => follower.user.toString() === req.user._id).length > 0) {
+//         return res.status(400).json({ alreadyFollowing: "You are already following this user" })
+//       }
 
-    user.followers.push(req.user._id);
-    const followedUser = user._id;
-    user.save()
+//     user.followers.push(req.user._id);
+//     const followedUser = user._id;
+//     user.save()
     
-    User.findOne({ _id: req.user._id })
-      .then(currentUser => {
-        currentUser.following.push(followedUser);
-        currentUser.save().then(user => res.json(user))
-      })
-      .catch(err => console.log("Error! You are already following this user"))
+//     User.findOne({ _id: req.user._id })
+//       .then(currentUser => {
+//         currentUser.following.push(followedUser);
+//         currentUser.save().then(user => res.json(user))
+//       })
+//       .catch(err => console.log("Error! You are already following this user"))
+//       })
+//   })
+
+// })
+
+router.post('/:user_id/follow', //FOR POSTMAN, INPUT THE FULL BEARER TOKEN IN HEADERS -> AUTHORIZATION KEY: <BEARERTOKEN> : EXPIRES AFTER ABOUT 13 MINUTES of NON-ACTIVITY
+  passport.authenticate("jwt", { session: false }), //THIS GIVES US REQ.USER WHICH IS AN ID - SEE PASSPORT.JS 
+  (req, res) => {
+    User.findById(req.params.user_id) 
+      .then( userToFollow => {
+        if (userToFollow.followers.some(follower => follower != null && follower._id.toString() === req.user.id)) {
+          return res.status(400).json({ alreadyFollowing: "You are already following this user"})
+        }
+
+        userToFollow.followers.push(req.user); 
+        const followedUser = userToFollow._id; //Now this user is "followed"
+        userToFollow.save() //Saves to database 
+
+        User.findOne({ _id: req.user }) // Looks for the LOGGED IN USER in the DB -> OWNER OF THE REQUEST
+          .then(currentUser => { // Currentuser is the owner of the request 
+            currentUser.following.push(followedUser); //Push followedUser (Which is an ID) to following array of currentUser
+            currentUser.save().then(user => res.json(currentUser));
+          })
+
+        res.json(userToFollow);
       })
   })
 
-// })
+  //NOTES: DO WE WANT MORE INFORMATION PASSED INTO REQ.USERS? OR WILL JUST THE ID SUFFICE? 
+
+// router.post('/:user_id/unfollow', 
+//   passport.authenticate("jwt", {session: false}), 
+//   (req, res) => {
+//     User.findById(req.params.user_id)
+//     .then( userToUnfollow => {
+
+//       let followers = userToUnfollow.followers;
+//       let userIndexInFollowers = followers.findIndex(follower => follower._id.toString() === req.user);
+
+//       if (userIndexInFollowers < 0) {
+//         return res.status(400).json( {notFollowing: "You are not following this User"})
+//       }
+
+//       followers.splice(userIndexInFollowers, 1); 
+//       userToUnfollow.save(); 
+
+//       res.json(userToUnfollow); 
+
+//     })
+//   }
+// )
+
 
 module.exports = router;
