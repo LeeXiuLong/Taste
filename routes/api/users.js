@@ -121,8 +121,6 @@ router.get('/:user_id', (req, res) => {
 });
 
 
-
-
 // router.post('/:user_id/follow', (req, res) => {
 //   // debugger;
 //   // res.json({something: req.params.user_id})
