@@ -9,6 +9,7 @@ const User = require('../../models/User');
 
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
+const { json } = require("body-parser");
 
 // router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
 
@@ -104,37 +105,51 @@ router.post('/login', (req, res) => {
 })
 
 
-router.get('/:user_id', (req, res) =>{
+
+router.get('/', (req, res) => {
+  User.find()
+    .sort({ date: -1 })
+    .then(users => res.json(users))
+    .catch(err => res.status(404).json({ noUsers: 'No users found' }));
+});
+
+
+router.get('/:user_id', (req, res) => {
   User.findById(req.params.user_id)
-    .then(user => {
-      
-    }) 
-})
+    .then(user => res.json(user))
+    .catch(err => res.status(404).json({ noUser: "No such user" }))
+});
+
+
 
 
 router.post('/:user_id/follow', (req, res) => {
   // debugger;
-  // res.json({something: req.params.user_id})
+  res.json({something: req.user.name})
   User.findById(req.params.user_id) //USER2's ID verification
     .then(user => {
       // const currentUser = req.body.currentUser
-      if (user.followers.filter(follower => follower.user.toString() === req.user._id).length > 0) {
+      if (user.followers.includes(follower => follower.user.toString() === req.user._id)) {
         return res.status(400).json({ alreadyFollowing: "You are already following this user" })
       }
 
-    user.followers.push(req.user._id);
-    const followedUser = user._id;
-    user.save()
+      // const { name, email, followers, following } = req.body
+
+      // res.json(req.body.user.name)
     
-    User.findOne({ _id: req.user._id })
-      .then(currentUser => {
-        currentUser.following.push(followedUser);
-        currentUser.save().then(user => res.json(user))
-      })
-      .catch(err => console.log("Error! You are already following this user"))
-      })
+  //   user.followers.push(req.body.user._id);
+  //   const followedUser = user._id;
+  //   user.save()
+    
+  //   User.findOne({ _id: req.body.user._id })
+  //     .then(currentUser => {
+  //       currentUser.following.push(followedUser);
+  //       currentUser.save().then(user => res.json(user))
+  //     })
+  //     .catch(err => console.log("Error! You are already following this user"))
+  //     })
   })
 
-// })
+})
 
 module.exports = router;
