@@ -169,29 +169,43 @@ router.post('/:user_id/follow', //FOR POSTMAN, INPUT THE FULL BEARER TOKEN IN HE
       })
   })
 
-  //NOTES: DO WE WANT MORE INFORMATION PASSED INTO REQ.USERS? OR WILL JUST THE ID SUFFICE? 
+  // NOTES: DO WE WANT MORE INFORMATION PASSED INTO REQ.USERS? OR WILL JUST THE ID SUFFICE? 
 
-// router.post('/:user_id/unfollow', 
-//   passport.authenticate("jwt", {session: false}), 
-//   (req, res) => {
-//     User.findById(req.params.user_id)
-//     .then( userToUnfollow => {
+router.patch('/:user_id/follow', 
+  passport.authenticate("jwt", {session: false}), 
+  (req, res) => {
+    User.findById(req.params.user_id)
+    .then( userToUnfollow => {
 
-//       let followers = userToUnfollow.followers;
-//       let userIndexInFollowers = followers.findIndex(follower => follower._id.toString() === req.user);
+      let followers = userToUnfollow.followers;
+      let userIndexInFollowers = followers.findIndex(follower => follower._id.toString() === req.user.id);
 
-//       if (userIndexInFollowers < 0) {
-//         return res.status(400).json( {notFollowing: "You are not following this User"})
-//       }
+      if (userIndexInFollowers < 0) {
+        return res.status(400).json( {notFollower: "You never had this person as a follower"})
+      }
 
-//       followers.splice(userIndexInFollowers, 1); 
-//       userToUnfollow.save(); 
+      followers.splice(userIndexInFollowers, 1); 
+      userToUnfollow.save(); 
+      // const unfollowedUser = userToUnfollow._id;
+      // res.json(userToUnfollow);  for testing
 
-//       res.json(userToUnfollow); 
-
-//     })
-//   }
-// )
+      User.findOne({ _id: req.user }) // Looks for the LOGGED IN USER in the DB -> OWNER OF THE REQUEST
+        .then((currentUser) => {
+          let following = currentUser.following
+          let unfollowedUserIdx = following.findIndex(followee => followee._id.toString() === userToUnfollow._id.toString())
+          
+          // return res.json(userToUnfollow);
+          // return res.json(unfollowedUserIdx);
+          if (unfollowedUserIdx < 0) { 
+            return res.status(400).json({ notFollowing: "You were never following this User" });
+          }
+          
+          following.splice(unfollowedUserIdx, 1); 
+          currentUser.save().then((user) => res.json(user));
+        });
+    })
+  }
+)
 
 
 module.exports = router;
