@@ -35,7 +35,7 @@ const UserSchema = new Schema({
       }
     ]
   
-  })
+  });
 
 // users/user_id/followers
   
