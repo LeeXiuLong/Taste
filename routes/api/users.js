@@ -168,7 +168,7 @@ router.post('/:user_id/follow', //FOR POSTMAN, INPUT THE FULL BEARER TOKEN IN HE
 //     User.findById(req.params.user_id)
 //     .then( userToUnfollow => {
 
-//       let followers = userToUnfollow.followers;
+//       let followers = userToUnfollow.followers; 
 //       let userIndexInFollowers = followers.findIndex(follower => follower._id.toString() === req.user);
 
 //       if (userIndexInFollowers < 0) {
