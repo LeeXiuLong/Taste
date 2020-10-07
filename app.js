@@ -8,6 +8,7 @@ const path = require('path');
 
 const users = require("./routes/api/users");
 const restuarantReviews = require('./routes/api/restaurantReviews');
+const lists = require("./routes/api/lists");
 
 mongoose
   .connect(db, { useNewUrlParser: true })
@@ -25,6 +26,7 @@ app.use(bodyParser.json());
 
 app.use("/api/users", users);
 app.use('/api/restaurantreviews', restuarantReviews)
+app.use("/api/lists", lists); 
 
 
 const port = process.env.PORT || 5000;
