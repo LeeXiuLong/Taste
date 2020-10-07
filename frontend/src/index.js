@@ -8,11 +8,11 @@ import { logout } from './actions/session_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;
-  if (localStorage.jwtToken) {
+  if (localStorage.jwtToken && localStorage.jwtToken !== "undefined") {
+
     setAuthToken(localStorage.jwtToken);
     
     const decodedUser = jwt_decode(localStorage.jwtToken);
-    debugger
     const preloadedState = { session: { isAuthenticated: true, user: decodedUser } };
 
     store = configureStore(preloadedState);
@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore({});
   }
   const root = document.getElementById('root');
+
+  
 
   ReactDOM.render(<Root store={store} />, root);
 });

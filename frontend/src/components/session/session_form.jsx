@@ -30,10 +30,11 @@ class SessionForm extends React.Component {
             name: "Keanu Reeves",
             email: "keanu@reeves.com",
             password: "johnwick911",
+            password2: "johnwick911"
         });
         this.setState(demo);
         this.props.login(demo)
-            // .then(this.props.closeModal());
+            .then(this.props.closeModal());
     }
 
     render() {
@@ -85,9 +86,9 @@ class SessionForm extends React.Component {
                     {/* {errorsArray} */}
                     <br></br>
                     <button type="submit" className="continue-button">continue</button>
+                    <button className="demo-button" onClick={this.demoUser}>demo user</button>
                 </form>
                     <br></br>
-                    <button className="demo-button" onClick={this.demoUser}>demo user</button>
             </div>
         )
 
@@ -133,9 +134,9 @@ class SessionForm extends React.Component {
                     {/* {errorsArray} */}
                     <br></br>
                     <button type="submit" className="continue-button">Continue</button>
+                    <button className="demo-button" onClick={this.demoUser}>demo user</button>
                 </form>
                     <br></br>
-                    <button className="demo-button" onClick={this.demoUser}>demo user</button>
             </div>
         )
 

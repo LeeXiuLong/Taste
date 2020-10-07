@@ -10,13 +10,23 @@ class Home extends React.Component {
                 <NavBar />
                 <div className="home-container">
                     <div className="home-subcontainer">
-                        <div className="home-greeting">
-                            <p> welcome Nahid!</p>
+                        <div className="home-content-container">
+                            <div className="header-left-container">
+                                <h3> see what people are tasting </h3>
+                            </div>
+                            <div className="home-greeting">
+                                <p> welcome {this.props.currentUser.name}!</p>
+                            </div>
                         </div>
-                        <div className="header-container-home">
-
+                        <div className="header-container-home"></div>
+                        <footer className="splash-footer">
+                            <div className="footer-links-splash">
+                                <a href="https://github.com/LeeXiuLong/Taste">Github</a>
+                            </div>
+                            <div className="copyright-splash">
+                                Copyright &copy; 2020 Junipers
                         </div>
-
+                        </footer>
                     </div>
                 </div>
             </div>
