@@ -6,7 +6,7 @@ module.exports = function validateRestaurantReview(data) {
 
     data.name = validText(data.name) ? data.name : "";
     data.address = validText(data.address) ? data.address : "";
-    data.rating = validText(data.rating) ? data.rating : "";
+    // data.rating = validText(data.rating) ? data.rating : "";
     // data.notes = validText(data.notes) ? data.notes : "";
     data.user = validText(data.user) ? data.user : "";
 
@@ -22,6 +22,14 @@ module.exports = function validateRestaurantReview(data) {
         errors.address = 'The restaurant address is required';
     }
 
+
+    if (!Validator.isNumeric(data.rating)) {
+        errors.rating = "Invalid Rating";
+    }
+
+    if (Validator.isEmpty(data.rating)) {
+        errors.rating = "Must enter a value"
+    }
 
     if (!Validator.isLength(data.rating, { min: 1, max: 10 })) {
         errors.rating = 'Restuarant rating must be between 1 and 10';
