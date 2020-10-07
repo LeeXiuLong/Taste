@@ -9,6 +9,7 @@ const path = require('path');
 const users = require("./routes/api/users");
 const restuarantReviews = require('./routes/api/restaurantReviews');
 const lists = require("./routes/api/lists");
+const menuItemReviews = require("./routes/api/menu-item")
 
 mongoose
   .connect(db, { useNewUrlParser: true })
@@ -25,8 +26,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use("/api/users", users);
-app.use('/api/restaurantreviews', restuarantReviews)
 app.use("/api/lists", lists); 
+app.use('/api/restaurantreviews', restuarantReviews)
+app.use('/api/menuitems', menuItemReviews)
 
 
 const port = process.env.PORT || 5000;

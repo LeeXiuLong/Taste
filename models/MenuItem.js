@@ -7,7 +7,7 @@ const MenuItemSchema = new Schema({
         required: true,
     },
 
-    reviewId: {
+    restaurantReview: {
         type: Schema.ObjectId,
         required: true,
     },
@@ -18,7 +18,7 @@ const MenuItemSchema = new Schema({
     },
 
     notes: {
-        type: Text,
+        type: String,
         required: false,
     }
 

@@ -7,25 +7,24 @@ const passport = require('passport');
 const RestaurantReview = require('../../models/RestaurantReview');
 const User = require('../../models/User');
 const List = require('../../models/List')
-const validateRestaurantReview = require('../../validation/restuarantReview');
+const validateRestaurantReview = require('../../validation/restaurantReview');
 
 
 router.get('/', (req, res) => {
     RestaurantReview.find()
         .sort({ rating: -1 })
-        .then(restuarantReviews => res.json(restuarantReviews))
+        .then(restaurantReviews => res.json(restaurantReviews))
         .catch(err => res.status(404).json({ noRestuarantReviews: 'No restuarant reviews found' }))
-    
 });
 
-
+// /api/retaurantreviews/:id
 router.get('/:id', (req, res) => {
     RestaurantReview.findById(req.params.id)
         .then(review => res.json(review))
         .catch(err => res.status(404).json({ notweetfound: 'No such review' }));
 });
 
-
+// api/restaurantreviews/user/:user_id
 router.get('/user/:user_id', (req, res) => {
     // User.findById(req.params.id)
     //     .then(user => res.json(user.restaurantReviews))
@@ -37,7 +36,7 @@ router.get('/user/:user_id', (req, res) => {
 });
 
 
-
+// api/restaurantreviews/list/:list_id
 router.get('/list/:list_id', (req, res) => {
     List.findById(req.params.list_id)
         .then(list => res.json(list.restaurantReviews))

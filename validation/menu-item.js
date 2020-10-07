@@ -4,7 +4,7 @@ const validText = require('./valid-text');
 module.exports = function validateMenuItemInput(data) {
     let errors = {};
 
-    data.name = validText(data.name) ? data.text : "";
+    data.name = validText(data.name) ? data.name : "";
 
     if (Validator.isEmpty(data.name)) {
         errors.name = "Name is Required";
@@ -13,13 +13,17 @@ module.exports = function validateMenuItemInput(data) {
     if (!Validator.isNumeric(data.rating)) {
         errors.rating = "Invalid Rating";
     }
-
-    if (Validator.isEmpty(data.rating)) {
-        errors.rating = ""
+    
+    if (!Validator.isLength(data.rating, { min: 1, max: 10 })) {
+        errors.rating = 'This rating must be between 1 and 10';
     }
 
-    if(Validator.isEmpty(data.reviewId)){
-        errors.rating = "No Review Specified."
+    if (Validator.isEmpty(data.rating)) {
+        errors.rating = "Must enter a value"
+    }
+
+    if (Validator.isEmpty(data.restaurantReview)){
+        errors.restaurantReview = "No Review Specified."
     }
 
     return {
