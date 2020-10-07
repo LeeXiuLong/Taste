@@ -1,4 +1,6 @@
-const { json } = require('body-parser');
+const {
+    json
+} = require('body-parser');
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
@@ -13,7 +15,8 @@ router.get('/', (req, res) => {
     RestuarantReview.find()
         .sort({ rating: -1 })
         .then(restuarantReviews => res.json(restuarantReviews))
-        .catch(err => res.status(404).json({ noRestuarantReviews: 'No restuarant reviews found' }));
+        .catch(err => res.status(404).json({ noRestuarantReviews: 'No restuarant reviews found' }))
+    
 });
 
 
@@ -30,8 +33,7 @@ router.get('/user/:user_id', (req, res) => {
     RestaurantReview.find({ user: req.params.user_id })
         .sort({ rating: -1 })
         .then(reviews => res.json(reviews))
-        .catch(err => res.status(404).json({ noUserRestuarantReviews: 'No restuarant reviews under this user' })
-        );
+        .catch(err => res.status(404).json({ noUserRestuarantReviews: 'No restuarant reviews under this user'}));
 });
 
 
@@ -49,13 +51,11 @@ router.post('/new',
     passport.authenticate('jwt', { session: false }), (req, res) => {
         const { errors, isValid } = validateRestaurantReview(req.body);
 
-        
         if (!isValid) {
             return res.status(400).json(errors);
         }
 
-
-        const newRestaurantReview = new RestaurantReview ({
+        const newRestaurantReview = new RestaurantReview({
             name: req.body.name,
             address: req.body.address,
             rating: req.body.rating,
@@ -69,20 +69,20 @@ router.post('/new',
         //     return res.json(newRestaurantReview); 
         newRestaurantReview.save();
 
-        User.findById( req.user.id ) //DO WE NEED THIS? 
+        User.findById(req.user.id) //DO WE NEED THIS? 
             .then(user => {
-                user.restaurantReviews.push(newRestaurantReview); 
+                user.restaurantReviews.push(newRestaurantReview);
                 user.save();
                 // return res.json(newRestaurantReview); 
             });
-        
+
         res.json(newRestaurantReview);
-          
+
     }
 );
 
 
-router.patch('/:id/edit', 
+router.patch('/:id/edit',
     passport.authenticate('jwt', { session: false }), (req, res) => {
         const { errors, isValid } = validateRestaurantReview(req.body);
 
@@ -90,7 +90,6 @@ router.patch('/:id/edit',
             return res.status(400).json(errors);
         }
 
-        
         const name = req.body.name;
         const address = req.body.address;
         const rating = req.body.rating;
@@ -102,40 +101,37 @@ router.patch('/:id/edit',
                 review.address = address;
                 review.rating = rating;
                 review.notes = notes;
-                review.save().then(updatedReview => res.json(updatedReview)) 
-            }
-
-
-
-)});
+                review.save().then(updatedReview => res.json(updatedReview))
+            })
+    });
 
 
 
 router.delete('/:id/delete',
-        passport.authenticate('jwt', { session: false }), (req, res) => {
-            const { errors, isValid } = validateRestaurantReview(req.body);
+    passport.authenticate('jwt', { session: false }), (req, res) => {
+        const { errors, isValid } = validateRestaurantReview(req.body);
 
-            RestaurantReview.findByIdAndRemove(req.params.id)
-                .then(review => {
-                    review.delete()
+        RestaurantReview.findByIdAndRemove(req.params.id)
+            .then(review => {
+                review.delete()
                     .then(review => res.json(review))
                     .catch(err => res.status(400).json({ revewNotDestroyed: "The review could not be deleted" }))
-                })
+            })
 
-            User.findById(req.user.id)
-                .then(user => {
-                    let restaurantReviews = user.RestaurantReview;
-                    let reviewIdx = restaurantReviews.findIndex(review => review._id.toString() === req.params.id);
+        User.findById(req.user.id)
+            .then(user => {
+                let restaurantReviews = user.RestaurantReview;
+                let reviewIdx = restaurantReviews.findIndex(review => review._id.toString() === req.params.id);
 
-                    if (reviewIdx < 0) {
-                        return res.status(400).json({ noUserReview: "This user never had this review" })
-                    }
+                if (reviewIdx < 0) {
+                    return res.status(400).json({ noUserReview: "This user never had this review" })
+                }
 
-                    restaurantReview.splice(reviewIdx, 1);
-                    user.save().then(user => res.json(user))
-                })
+                restaurantReview.splice(reviewIdx, 1);
+                user.save().then(user => res.json(user))
+            })
 
-});
+    });
 
 
 
