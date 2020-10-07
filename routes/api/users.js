@@ -83,17 +83,14 @@ router.post('/login', (req, res) => {
   bcrypt.compare(password, user.password)
     .then(isMatch => {
       if (isMatch) {
-        const payload = {id: user.id, name: user.name};
+        const payload = {id: user.id, name: user.name, email: user.email };
 
         jwt.sign(
           payload,
           keys.secretOrKey,
           {expiresIn: 3600},
           (err, token) => {
-          res.json({
-            success: true,
-            token: 'Bearer ' + token
-          });
+          res.json({ success: true, token: 'Bearer ' + token });
         });
       } else {
         return res.status(400).json({ password: 'Incorrect password' });
@@ -169,7 +166,7 @@ router.post('/:user_id/follow', //FOR POSTMAN, INPUT THE FULL BEARER TOKEN IN HE
 
   // NOTES: DO WE WANT MORE INFORMATION PASSED INTO REQ.USERS? OR WILL JUST THE ID SUFFICE? 
 
-router.patch('/:user_id/follow', 
+router.patch('/:user_id/unfollow', 
   passport.authenticate("jwt", {session: false}), (req, res) => {
     User.findById(req.params.id)
     .then( userToUnfollow => {

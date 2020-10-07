@@ -41,6 +41,14 @@ const UserSchema = new Schema({
           ref: 'List'
         }
       }
+    ],
+    restaurantReviews: [
+      {
+        review: {
+          type: Schema.ObjectId,
+          ref: 'RestaurantReview'
+        }
+      }
     ]
   
   });

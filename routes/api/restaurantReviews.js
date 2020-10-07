@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 const RestaurantReview = require('../../models/RestaurantReview');
-// const User = require('../../models/User');
+const User = require('../../models/User');
 const validateRestaurantReview = require('../../validation/restuarantReview');
 
 
@@ -63,7 +63,21 @@ router.post('/new',
             user: req.user.id,
         });
 
-        newRestaurantReview.save().then(review => res.json(review));
+        // const currentUser = req.user.id
+        //     user.reviews.push(newRestaurantReview._id); 
+        //     user.save()
+        //     return res.json(newRestaurantReview); 
+        newRestaurantReview.save();
+
+        User.findById( req.user.id ) //DO WE NEED THIS? 
+            .then(user => {
+                user.restaurantReviews.push(newRestaurantReview); 
+                user.save();
+                // return res.json(newRestaurantReview); 
+            });
+        
+        res.json(newRestaurantReview);
+          
     }
 );
 
@@ -107,7 +121,22 @@ router.delete('/:id/delete',
                     .then(review => res.json(review))
                     .catch(err => res.status(400).json({ revewNotDestroyed: "The review could not be deleted" }))
                 })
+
+            User.findById(req.user.id)
+                .then(user => {
+                    let restaurantReviews = user.RestaurantReview;
+                    let reviewIdx = restaurantReviews.findIndex(review => review._id.toString() === req.params.id);
+
+                    if (reviewIdx < 0) {
+                        return res.status(400).json({ noUserReview: "This user never had this review" })
+                    }
+
+                    restaurantReview.splice(reviewIdx, 1);
+                    user.save().then(user => res.json(user))
+                })
+
 });
+
 
 
 module.exports = router;
