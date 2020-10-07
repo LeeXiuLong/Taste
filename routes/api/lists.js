@@ -100,7 +100,7 @@ router.patch('/:list_id/reviews/:review_id/delete', //DELETES REVIEW FROM USER'S
                     return res.status(401).json({ userMatch: "You are not the owner of this list" });
                 } else {
                   let reviews = listEdit.restaurantReviews;
-                  let reviewIndex = reviews.findIndex
+                //   let reviewIndex = reviews.findIndex(review => reviewlook._id.toString() === req.params.id)
 
                   if (reviewIndex < 0) {
                       return res.status(400).json( {noReview: "Review does not exist"})
