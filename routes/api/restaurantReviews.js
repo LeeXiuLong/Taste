@@ -68,7 +68,16 @@ router.post('/new',
             // inList: req.body.inList ?  list.id : ""
         });
 
-        newRestaurantReview.save().then(review => res.json(review));
+        newRestaurantReview.save();
+
+        User.findById( req.user.id ) //DO WE NEED THIS? 
+            .then( user => {
+                user.reviews.push(newRestaurantReview._id); 
+                user.save()
+                return res.json(newRestaurantReview); 
+            });
+
+          
     }
 );
 
@@ -99,7 +108,6 @@ router.patch('/:id/edit',
 )});
 
 
-
 router.route('/:id').delete((req, res, next) => {
     restuarantReviews.findByIdAndRemove(req.params.id, (error, data) => {
         if (error) {
@@ -109,5 +117,7 @@ router.route('/:id').delete((req, res, next) => {
         }
     })
 })
+
+//ADDING/DELETING FROM USER'S LISTS DONE IN LISTS
 
 module.exports = router;
