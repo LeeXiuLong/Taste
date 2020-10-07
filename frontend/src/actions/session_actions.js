@@ -28,16 +28,18 @@ export const logoutUser = () => ({
 export const signup = user => dispatch => (
     APIUtil.signup(user).then((payload) => (
         dispatch(receiveUserSignIn(payload))
-    ), err => (
-        dispatch(receiveErrors(err.response.data))
-    ))
+        ), err => (
+            dispatch(receiveErrors(err.response.data))
+        ))
 );
 
 export const login = user => dispatch => (
     APIUtil.login(user).then(res => {
         const { token } = res.data;
         localStorage.setItem('jwtToken', token);
+        debugger
         APIUtil.setAuthToken(token);
+        debugger
         const decoded = jwt_decode(token);
         dispatch(receiveCurrentUser(decoded))
     })

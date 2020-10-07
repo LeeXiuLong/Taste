@@ -3,6 +3,7 @@ import { closeModal } from '../../actions/modal_actions';
 import { connect } from 'react-redux';
 import LoginFormContainer from '../session/login_form_container';
 import SignupFormContainer from '../session/signup_form_container';
+import ListFormContainer from '../list/list_form/list_form_container';
 import './modal.scss';
 
 function Modal({ modal, closeModal}) {
@@ -17,6 +18,9 @@ function Modal({ modal, closeModal}) {
         case 'signup':
             component = <SignupFormContainer />;
             break;
+        case 'list':
+            component = <ListFormContainer />
+            break
         default:
             return null;
     }
