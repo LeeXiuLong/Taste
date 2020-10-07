@@ -162,7 +162,7 @@ router.post('/:user_id/follow', //FOR POSTMAN, INPUT THE FULL BEARER TOKEN IN HE
         User.findOne({ _id: req.user }) // Looks for the LOGGED IN USER in the DB -> OWNER OF THE REQUEST
           .then(currentUser => { // Currentuser is the owner of the request 
             currentUser.following.push(followedUser); //Push followedUser (Which is an ID) to following array of currentUser
-            currentUser.save().then(user => res.json(currentUser));
+            currentUser.save().then(user => res.json(user));
           })
 
         res.json(userToFollow);
@@ -172,9 +172,8 @@ router.post('/:user_id/follow', //FOR POSTMAN, INPUT THE FULL BEARER TOKEN IN HE
   // NOTES: DO WE WANT MORE INFORMATION PASSED INTO REQ.USERS? OR WILL JUST THE ID SUFFICE? 
 
 router.patch('/:user_id/follow', 
-  passport.authenticate("jwt", {session: false}), 
-  (req, res) => {
-    User.findById(req.params.user_id)
+  passport.authenticate("jwt", {session: false}), (req, res) => {
+    User.findById(req.params.id)
     .then( userToUnfollow => {
 
       let followers = userToUnfollow.followers;
