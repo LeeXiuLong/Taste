@@ -1,11 +1,19 @@
 import React from 'react';
 import NavBar from '../nav/navbar_container';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import './list_index.scss';
 
 class ListIndex extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { name: "" }
+    }
+
 
     render() {
+
+        const { openModal } = this.props;
+
         let list1, list2, list3, list4;
 
         list1 = (
@@ -40,7 +48,9 @@ class ListIndex extends React.Component {
                         <div className="list-items-container">
                             <div className="list-i-toptext">
                                 <h2 className="list-main-h2">lists</h2>
-                                <Link to="/create-list"><h3 className="list-main-h3">+</h3></Link>
+                                {/* <Link to="/create-list"> */}
+                                    <button className="list-main-h3" onClick={() => openModal('list')}>+</button>
+                                    {/* </Link> */}
                             </div>
                             <div className="list-subcontainer">
                                 <ul>
@@ -59,7 +69,7 @@ class ListIndex extends React.Component {
                         </div>
                         <div className="copyright-us">
                             Copyright &copy; 2020 Junipers
-                    </div>
+                        </div>
                     </footer>
                 </div>
             </div>
