@@ -1,6 +1,4 @@
-const {
-    json
-} = require('body-parser');
+const { json } = require('body-parser');
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
@@ -8,11 +6,12 @@ const passport = require('passport');
 
 const RestaurantReview = require('../../models/RestaurantReview');
 const User = require('../../models/User');
+const List = require('../../models/List')
 const validateRestaurantReview = require('../../validation/restuarantReview');
 
 
 router.get('/', (req, res) => {
-    RestuarantReview.find()
+    RestaurantReview.find()
         .sort({ rating: -1 })
         .then(restuarantReviews => res.json(restuarantReviews))
         .catch(err => res.status(404).json({ noRestuarantReviews: 'No restuarant reviews found' }))
@@ -27,22 +26,22 @@ router.get('/:id', (req, res) => {
 });
 
 
-
-
 router.get('/user/:user_id', (req, res) => {
+    // User.findById(req.params.id)
+    //     .then(user => res.json(user.restaurantReviews))
+
     RestaurantReview.find({ user: req.params.user_id })
         .sort({ rating: -1 })
         .then(reviews => res.json(reviews))
-        .catch(err => res.status(404).json({ noUserRestuarantReviews: 'No restuarant reviews under this user'}));
+        .catch(err => res.status(400).json({ noUserRestaurantReviews: 'No restaurant reviews under this user'}));
 });
 
 
 
 router.get('/list/:list_id', (req, res) => {
-    RestaurantReview.find({ lists: req.params.list_id })
-        .sort({ rating: -1 })
-        .then(reviews => res.json(reviews))
-        .catch(err => res.status(404).json({ noListRestuarantReviews: 'No restuarant reviews under this list' }));
+    List.findById(req.params.list_id)
+        .then(list => res.json(list.restaurantReviews))
+        .catch(err => res.status(400).json({ noListRestaurantReviews: 'No restaurant reviews under this list' }));
 });
 
 
@@ -107,27 +106,29 @@ router.patch('/:id/edit',
 
 
 
-router.delete('/:id/delete',
+router.delete('/:id/delete', // 5f7dd4c88f96db7831b8afc3/delete
     passport.authenticate('jwt', { session: false }), (req, res) => {
-        const { errors, isValid } = validateRestaurantReview(req.body);
+        // const { errors, isValid } = validateRestaurantReview(req.body);
 
         RestaurantReview.findByIdAndRemove(req.params.id)
             .then(review => {
                 review.delete()
-                    .then(review => res.json(review))
+                    // .then(review => res.json(review))
                     .catch(err => res.status(400).json({ revewNotDestroyed: "The review could not be deleted" }))
             })
 
         User.findById(req.user.id)
             .then(user => {
-                let restaurantReviews = user.RestaurantReview;
-                let reviewIdx = restaurantReviews.findIndex(review => review._id.toString() === req.params.id);
-
+                
+                let restaurantReviews = user.restaurantReviews;
+            
+                let reviewIdx = restaurantReviews.findIndex(reviewlook => reviewlook._id.toString() === req.params.id);
+         
                 if (reviewIdx < 0) {
                     return res.status(400).json({ noUserReview: "This user never had this review" })
                 }
 
-                restaurantReview.splice(reviewIdx, 1);
+                restaurantReviews.splice(reviewIdx, 1);
                 user.save().then(user => res.json(user))
             })
 

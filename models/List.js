@@ -16,9 +16,9 @@ const ListSchema = new Schema({
     },
     restaurantReviews: [
         {
-            RestaurantReview: {
+            reviews: {
                 type: Schema.ObjectId,
-                ref: 'Restaurant'
+                ref: 'RestaurantReview'
             }
         }
     ],
