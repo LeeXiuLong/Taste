@@ -58,7 +58,6 @@ router.post('/register', (req, res) => {
 
 
 router.post('/login', (req, res) => {
-    // debugger
   const { errors, isValid } = validateLoginInput(req.body);
 
   console.log(errors);
@@ -122,7 +121,6 @@ router.get('/:user_id', (req, res) => {
 
 
 // router.post('/:user_id/follow', (req, res) => {
-//   // debugger;
 //   // res.json({something: req.params.user_id})
 //   User.findById(req.params.user_id) //USER2's ID verification
 //     .then(user => {
