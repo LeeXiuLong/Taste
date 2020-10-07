@@ -5,9 +5,9 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 const RestaurantReview = require('../../models/RestaurantReview');
-const User = require('../../models/User');
+// const User = require('../../models/User');
 const validateRestaurantReview = require('../../validation/restuarantReview');
-let ObjectID = require('mongoose').Types.ObjectId
+
 
 router.get('/', (req, res) => {
     RestuarantReview.find()
@@ -34,9 +34,6 @@ router.get('/user/:user_id', (req, res) => {
         );
 });
 
-// a user has many lists
-//  => a list has many restuarant reviews
-//  =>  restaurant 
 
 
 router.get('/list/:list_id', (req, res) => {
@@ -52,12 +49,11 @@ router.post('/new',
     passport.authenticate('jwt', { session: false }), (req, res) => {
         const { errors, isValid } = validateRestaurantReview(req.body);
 
-        // res.json(req.user)
+        
         if (!isValid) {
             return res.status(400).json(errors);
         }
 
-    //     // const list = req.params.list_id
 
         const newRestaurantReview = new RestaurantReview ({
             name: req.body.name,
@@ -65,7 +61,6 @@ router.post('/new',
             rating: req.body.rating,
             notes: req.body.notes,
             user: req.user.id,
-            // inList: req.body.inList ?  list.id : ""
         });
 
         newRestaurantReview.save().then(review => res.json(review));
@@ -96,18 +91,23 @@ router.patch('/:id/edit',
                 review.save().then(updatedReview => res.json(updatedReview)) 
             }
 
+
+
 )});
 
 
 
-router.route('/:id').delete((req, res, next) => {
-    restuarantReviews.findByIdAndRemove(req.params.id, (error, data) => {
-        if (error) {
-            return next(error);
-        } else {
-            res.status(200).json({ msg: data })
-        }
-    })
-})
+router.delete('/:id/delete',
+        passport.authenticate('jwt', { session: false }), (req, res) => {
+            const { errors, isValid } = validateRestaurantReview(req.body);
+
+            RestaurantReview.findByIdAndRemove(req.params.id)
+                .then(review => {
+                    review.delete()
+                    .then(review => res.json(review))
+                    .catch(err => res.status(400).json({ revewNotDestroyed: "The review could not be deleted" }))
+                })
+});
+
 
 module.exports = router;
