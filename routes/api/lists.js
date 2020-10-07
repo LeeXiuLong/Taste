@@ -42,11 +42,11 @@ router.post('/new', //USER CREATES NEW LIST -> GOES INTO USER'S LISTS ARRAY
 
 );
 
-router.get('/', (req, res) => { //GETS ALL LISTS
-    List.find()
-        .sort({ date: -1 })
-        .then(lists => res.json(lists))
-}); 
+// router.get('/', (req, res) => { //GETS ALL LISTS
+//     List.find()
+//         .sort({ date: -1 })
+//         .then(lists => res.json(lists))
+// }); 
 
 router.get('/user/:user_id', (req, res) => {//SHOWS LISTS BELONGING TO USER
     List.find({user: req.params.user_id})
@@ -100,14 +100,15 @@ router.patch('/:list_id/reviews/:review_id/delete', //DELETES REVIEW FROM USER'S
                     return res.status(401).json({ userMatch: "You are not the owner of this list" });
                 } else {
                   let reviews = listEdit.restaurantReviews;
-                //   let reviewIndex = reviews.findIndex(review => reviewlook._id.toString() === req.params.id)
+                  let reviewIndex = reviews.findIndex(review => review._id.toString() === req.params.review_id);
 
                   if (reviewIndex < 0) {
                       return res.status(400).json( {noReview: "Review does not exist"})
                   }
 
-                  reviews.splice(reviewIndex, 1);
-                  listEdit.save(); 
+                    reviews.splice(reviewIndex, 1);
+                    listEdit.save(); 
+                    return res.json(listEdit); 
                 }
             })
     }
@@ -123,14 +124,15 @@ router.patch('/:list_id/reviews/:review_id/add', //ADDS REVIEW TO USER'S LIST
                     return res.status(401).json({ userMatch: "You are not the owner of this list" });
                 } else {
                     let reviews = listEdit.restaurantReviews;
-                    let reviewIndex = reviews.findIndex
+                    let reviewIndex = reviews.findIndex( review => review._id.toString() === req.params.review_id );
 
-                    if (reviewIndex > -1) {
+                    if (reviewIndex != -1) {
                         return res.status(400).json({ reviewExists: "This review already exists in this list" })
                     }
 
                     reviews.push(req.params.review_id)
                     listEdit.save();
+                    return res.json(listEdit)
                 }
             })
     }
