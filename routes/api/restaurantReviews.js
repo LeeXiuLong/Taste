@@ -81,66 +81,22 @@ router.patch('/:id/edit',
             return res.status(400).json(errors);
         }
 
-        const updatedReview = new RestaurantReview({
-            name: req.body.name,
-            address: req.body.address,
-            rating: req.body.rating,
-            notes: req.body.notes,
-        });
-
-        RestaurantReview.findByIdAndUpdate({_id: req.params.id }, { $set: updatedReview),
-            .then((review) => res.json(review))
-            .catch((err) => res.status(400).json({ err }));
- 
-
-        RestaurantReview.findByIdAndUpdate
-        // RestaurantReview.findByIdAndUpdate({_id: req.params.id}, 
-        //     { name: req.body.name, address: req.body.address, rating: req.body.rating, notes: req.body.notes }, 
-        //     {new: true}, 
-        //     (err, result) => {
-        //         if (err) {
-        //             res.json(err);
-        //         } else {
-        //             res.json(result);
-        //         }
-        //     })
-            // .then(review => {
-            //     if (!review) {
-            //         return res.json({ noReview: "This review does not exist"})
-            //     }
-
-            //     return res.json(review)
-                
-
-
-                // const edittedReview = review.updateOne({
-                //     $set: { 'name': req.body.name },
-                //     $set: { 'address': req.body.address },
-                //     $set: { 'rating': req.body.rating },
-                //     $set: { 'notes': req.body.notes},
-                //     user: req.user.id
-                // })
-                // edittedReview.save().then(edittedReview => res.json(edittedReview))
-
-        // if (!ObjectID.isValid(req.params.id)) {
-        //     return res.status(400).json({ noReview: "No such review found" })
-        // }
         
-        // let updatedReview = {
-        //     name: req.body.title,
-        //     address: req.body.address,
-        //     rating: req.body.ratings,
-        //     notes: req.body.notes
-        // };
-        
+        const name = req.body.name;
+        const address = req.body.address;
+        const rating = req.body.rating;
+        const notes = req.body.notes;
 
-        // RestaurantReview.findByIdAndUpdate(req.params.id, { $set: updatedReview }, (err, result) => {
-        //     return !err ? res.json(result) : res.json(err) 
-        // })
+        RestaurantReview.findById(req.params.id)
+            .then((review) => {
+                review.name = name;
+                review.address = address;
+                review.rating = rating;
+                review.notes = notes;
+                review.save().then(updatedReview => res.json(updatedReview)) 
+            }
 
-    });
-//     }
-// );
+)});
 
 
 
