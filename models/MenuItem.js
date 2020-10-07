@@ -17,11 +17,13 @@ const MenuItemSchema = new Schema({
         required: true,
     },
 
-    Notes: {
+    notes: {
         type: Text,
         required: false,
     }
 
 });
+
+MenuItemSchema.index({reviewId: 1, name: 1}, {unique: true});
 
 module.exports = MenuItem = mongoose.model('menuItems', MenuItemSchema);
