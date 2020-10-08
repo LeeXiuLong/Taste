@@ -58,18 +58,14 @@
     }
 }
 
-.header-left-container {
-    background-color: ghostwhite;
-    display: flex;
-    width: 100%;
-    float: left;
-    color: #1b1b1b;
-    font-size: 14px;
-    font-weight: lighter;
-    margin-left: 40px;
-    height: 500px;
+img {
     border-radius: 8px;
+    border: ghostwhite;
+}
+
+.header-left-container {
     h3 {
+        color: ghostwhite;
         padding-left: 30px;
     }
 }
@@ -81,4 +77,61 @@
     top: 60%;
     background: center no-repeat url('i-like-ur-taste.png');
     background-size: 600px;
+}
+
+.reviews-container-home {
+    background-color: #1b1b1b;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    float: left;
+    color: #1b1b1b;
+    font-size: 14px;
+    font-weight: lighter;
+    margin-left: 40px;
+    height: 460px;
+    border-radius: 8px;
+    padding-top: 15px;
+    border: 2pt solid ghostwhite;
+    color: ghostwhite;
+    padding-right: 35px;
+}
+
+.footer-git-links {
+    padding: 0 0 0 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    // font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    li {
+        padding-left: 15px;
+        line-height: 1px;
+    }
+}
+
+.reviews-container-home {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    div {
+    }
+    ul div {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        font-weight: 600;
+        li {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 15px;
+        }
+        p {
+            padding-bottom: 35px;
+            padding-left: 25px;
+            font-size: 12px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            // text-align: center;
+        }
+    }
 }

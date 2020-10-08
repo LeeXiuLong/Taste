@@ -55,7 +55,7 @@ router.post('/register', (req, res) => {
               });
               
           })
-          .catch(err => console.log(err));
+          // .catch(err => console.log(err));
         })
       }
     })

@@ -12,7 +12,7 @@ const validateRestaurantReview = require('../../validation/restuarantReview');
 
 
 router.get('/', (req, res) => {
-    RestuarantReview.find()
+    RestaurantReview.find()
         .sort({ rating: -1 })
         .then(restuarantReviews => res.json(restuarantReviews))
         .catch(err => res.status(404).json({ noRestuarantReviews: 'No restuarant reviews found' }))

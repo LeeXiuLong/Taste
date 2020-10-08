@@ -11,32 +11,54 @@
 .modal-child {
   animation-name: modal-animation;
   animation-duration: 400ms;
-  background-color: #1a1a1a;
+  background-color: ghostwhite;
   position: inherit;
   top: 50%;
   left: 50%;
   border-radius: 8px;
   transform: translate(-50%, -50%);
   width: 600px;
-  height: 300px;
+  height: 400px;
   color: black;
   text-align: center;
   justify-content: center;
+  border: solid 2pt #1b1b1b;
 }
 
 div.signup-form, div.login-form {
   color: ghostwhite;
   justify-content: center;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 15px 0 0 0;
+}
+
+.form-container {
+  float: right;
+  width: 100%;
+  padding-top: 55px;
+  margin: 30px 35px 0 0;
+  border-radius: 9px;
+}
+
+.modal-formtype {
+  font-size: 25px;
+  margin: 35px 0 0 12px;
+  width: 100%;
+  display: flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1b1b1b;
+  // padding: 15px 15px 15px 15px;
 }
 
 .signup-form input, .login-form input {
   width: 200px;
   padding: 5px 5px 5px 5px;
   margin: 6px 0 6px 0;
+  border-radius: 4px;
 }
 
 @keyframes modal-animation {
@@ -49,3 +71,22 @@ div.signup-form, div.login-form {
     bottom: 0%;
   }
 }
+
+.demo-button, .continue-button {
+    padding: 5px 5px 5px 5px;
+    margin: 10px;
+    border-radius: 5px;
+    color: ghostwhite;
+    background-color: #1b1b1b;
+    font-size: 13px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: lighter;
+    
+}
+
+.continue-button {
+  margin-top: 15px;
+  padding: 5px 10px 5px 10px;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:900i&display=swap');
