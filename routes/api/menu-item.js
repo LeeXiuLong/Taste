@@ -54,6 +54,12 @@ router.post("/restaurantreview/:rr_id/new",
 
 // menu items index
 // api/menuitems/restaurantreviews/:rr_id/
+router.get('/:id', (req, res) => {
+    MenuItem.findById(req.params.id)
+        .then(item => res.json(item))
+        .catch(err => res.status(400).json({ noMenuItem: 'This menu item review does not exist' }));
+});
+
 router.get('/restaurantreview/:rr_id', (req, res) => {
     RestaurantReview.findById(req.params.rr_id) // find one restaurant review
         .sort({ rating: -1 })
