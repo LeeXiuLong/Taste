@@ -17,5 +17,5 @@ export const fetchLists = () => {
 };
 
 export const addReviewToList = (listId, reviewId) => {
-    return axios.get(`api/lists/${listId}/reviews/${reviewId}/add`);
+    return axios.patch(`api/lists/${listId}/reviews/${reviewId}/add`);
 }

@@ -23,8 +23,8 @@ class ListIndex extends React.Component {
         
         if (!this.props.lists) return null;
 
-        if (this.props.lists.data) {
-            listArr = Object.values(this.props.lists.data)
+        if (this.props.lists) {
+            listArr = Object.values(this.props.lists)
             
 
             let lists = listArr.map(list => {

@@ -29,6 +29,20 @@
     text-align: center;
 }
 
+.list-main-button {
+    float: right;
+    display: flex;
+    justify-self: flex-end;
+    background-color: #1b1b1b;
+    color: ghostwhite;
+    border-radius: 30px;
+    font-weight: lighter;
+    padding: 6px 14px 6px 14px;
+    font-size: 30px;
+    text-align: center;
+    border: none;
+}
+
 .footer-links-ri a {
     color: #1b1b1b;
     font-size: 10px;
