@@ -27,6 +27,10 @@ function Modal({ modal, closeModal}) {
             break;
         case 'restaurantFormList':
             component = <RestaurantFormContainer />
+            break;
+        case "restaurantMenuItem":
+            console.log("Something");
+            // component = <RestaurantMenuItemFormContainer />
         default:
             return null;
     }

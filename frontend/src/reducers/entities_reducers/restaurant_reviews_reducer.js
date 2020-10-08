@@ -1,6 +1,7 @@
 import { RECEIVE_REVIEW, RECEIVE_REVIEWS } from "../../actions/restaurant_review_actions";
 
 const reviewsReducer = (state = {}, action) => {
+    Object.freeze(state);
     switch (action.type) {
         case RECEIVE_REVIEW:
             return action.review.data;

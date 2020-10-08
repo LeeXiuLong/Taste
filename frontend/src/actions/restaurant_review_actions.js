@@ -18,8 +18,18 @@ export const fetchReviews = (reviews) => dispatch => {
         .then(reviews => { return dispatch(receiveReviews(reviews)) })
 }
 
+export const fetchReview = (reviewId) => dispatch => {
+    return ApiUtil.fetchReview(reviewId)
+        .then(review => { return dispatch(receiveReview(review)) })
+}
+
 export const fetchListReviews = (listId) => dispatch => {
     return ApiUtil.fetchListReviews(listId)
+        .then(reviews => { return dispatch(receiveReviews(reviews)) })
+}
+
+export const fetchUserReviews = (userId) => dispatch => {
+    return ApiUtil.fetchUserReviews(userId)
         .then(reviews => { return dispatch(receiveReviews(reviews)) })
 }
 

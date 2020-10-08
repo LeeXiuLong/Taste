@@ -16,3 +16,7 @@ export const fetchListReviews = (listId) => {
     return axios.get(`api/restaurantreviews/list/${listId}`)
 }
 
+export const fetchUserReviews = (userId) => {
+    return axios.get(`api/restaurantreviews/user/${userId}`)
+}
+

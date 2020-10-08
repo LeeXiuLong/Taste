@@ -15,6 +15,7 @@ class RestaurantForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+
     handleChange(type){
         return e => this.setState({ [type]: e.currentTarget.value})
     }
@@ -22,9 +23,9 @@ class RestaurantForm extends React.Component {
     handleSubmit(e){
         e.preventDefault();
         if(this.props.listId){
-            this.props.createReview(this.state).then(review => this.props.addReviewToList(this.props.listId, review.id))
+            this.props.createReview(this.state).then(review => this.props.addReviewToList(this.props.listId, review.review.data._id))
                 .then(this.props.closeModal());
-        }else{
+        } else {
             this.props.createReview(this.state).then(this.props.closeModal())
         }
         
@@ -33,7 +34,7 @@ class RestaurantForm extends React.Component {
     render() {
         let radioButtons = [];
         for(let i = 1; i < 11; i++){
-            let button = <label>{i}<input name="rating" type="radio" value={i} onChange = {this.handleChange("rating")}/></label>
+            let button = <label>{i}<input name="rating" type="radio" key={i} value={i} onChange = {this.handleChange("rating")}/></label>
             radioButtons.push(button);
         }
         return (

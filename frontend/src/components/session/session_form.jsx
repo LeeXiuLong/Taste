@@ -13,11 +13,17 @@ class SessionForm extends React.Component {
         this.demoUser = this.demoUser.bind(this);
     }
 
+    componentWillUnmount() {
+        if (Object.keys(this.props.errors).length) {
+            this.props.clearErrors();
+        }
+    }
+
     handleSubmit(e) {
         e.preventDefault();
         const user = Object.assign({}, this.state);
         this.props.processForm(user)
-            .then(this.props.closeModal)
+            // .then(this.props.closeModal)
     }
 
     update(field) {
@@ -39,11 +45,14 @@ class SessionForm extends React.Component {
 
     render() {
         const { formType } = this.props;
+        let errors;
 
-        // let errorsArray = this.props.errors;
-        // if (this.props.errors.session) {
-        //     errorsArray = this.props.errors.session.map(error => <p> {error} </p>)
-        // };
+        let errorsArray = this.props.errors;
+        if (this.props.errors.session) {
+            errorsArray = Object.values(this.props.errors.session);
+            console.log(errorsArray)
+            errors = errorsArray.map(error => <p key={errorsArray.length - 1} className="session-errors"> {error} </p>)
+        };
 
         const signupModal = (
             <div className="signup-form">
@@ -85,11 +94,11 @@ class SessionForm extends React.Component {
                                 value={this.state.password2}
                                 onChange={this.update('password2')} />
                         </label>
-                        {/* {errorsArray} */}
                         <br></br>
                         <button type="submit" className="continue-button">continue</button>
                         <button className="demo-button" onClick={this.demoUser}>demo user</button>
                     </form>
+                        {errors}
                         <br></br>
                 </div>
             </div>
@@ -100,15 +109,15 @@ class SessionForm extends React.Component {
                 <div className="modal-formtype"><h1>{formType}</h1></div>
                 <div className="form-container">
                     <form onSubmit={this.handleSubmit} key={this.state.id}>
-                        <label>
+                        {/* <label>
                             <input
                                 className="login-inputs"
                                 type="text"
                                 placeholder=" full name"
                                 value={this.state.name}
                                 onChange={this.update('name')} />
-                        </label>
-                        <br />
+                        </label> */}
+                        {/* <br /> */}
                         <label>
                             <input
                                 className="login-inputs"
@@ -128,19 +137,20 @@ class SessionForm extends React.Component {
                                 onChange={this.update('password')} />
                         </label>
                         <br></br>
-                        <label>
+                        {/* <label>
                             <input
-                                className="login-inputs"
-                                type="password"
-                                placeholder=" confirm password"
-                                value={this.state.password2}
-                                onChange={this.update('password2')} />
-                        </label>
+                            className="login-inputs"
+                            type="password"
+                            placeholder=" confirm password"
+                            value={this.state.password2}
+                            onChange={this.update('password2')} />
+                        </label> */}
                         {/* {errorsArray} */}
-                        <br></br>
+                        {/* <br></br> */}
                         <button type="submit" className="continue-button">Continue</button>
                         <button className="demo-button" onClick={this.demoUser}>demo user</button>
                     </form>
+                        {errors}
                     <br></br>
                 </div>
             </div>
