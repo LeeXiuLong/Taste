@@ -1,32 +1,78 @@
 import React from 'react';
-import NavBar from '../../nav/navbar_container';
-import { Link } from 'react-router-dom';
 import './restaurant_form.scss';
 
 class RestaurantForm extends React.Component {
+    constructor(props){
+        super(props)
+
+        this.state = {
+            name: "",
+            address: "",
+            rating: null,
+            notes: "",
+        }
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(type){
+        return e => this.setState({ [type]: e.currentTarget.value})
+    }
+
+    handleSubmit(e){
+        e.preventDefault();
+        if(this.props.listId){
+            this.props.createReview(this.state).then(review => this.props.addReviewToList(this.props.listId, review.id))
+                .then(this.props.closeModal());
+        }else{
+            this.props.createReview(this.state).then(this.props.closeModal())
+        }
+        
+    }
 
     render() {
+        let radioButtons = [];
+        for(let i = 1; i < 11; i++){
+            let button = <label>{i}<input name="rating" type="radio" value={i} onChange = {this.handleChange("rating")}/></label>
+            radioButtons.push(button);
+        }
         return (
-            <div className="ri-form-main">
-                <NavBar />
-                <div className="ri-form-container">
-                    <div className="ri-form-subcontainer">
-                        <div className="ri-form-main-left">
-                            <h1>add a Restaurant</h1>
-                        </div>
-                        <div className="ri-form-main-right">
-
-                        </div>
-                    </div>
-                    <footer className="ri-form-footer">
-                        <div className="footer-links-ri-form">
-                            <a href="https://github.com/LeeXiuLong/Taste">Github</a>
-                        </div>
-                        <div className="copyright-ri-form">
-                            Copyright &copy; 2020 Junipers
-                        </div>
-                    </footer>
+            <div>
+                <div className="restaurant-form-header">
+                    <h1>
+                        Create a Review
+                    </h1>
                 </div>
+                <form onSubmit={this.handleSubmit} className="restaurant-form">
+                    <label>Name
+                        <input
+                            type="text"
+                            onChange = {this.handleChange("name")}
+                        />
+                    </label>
+                    
+                    <label>Address
+                        <input
+                            type="text"
+                            onChange={this.handleChange("address")}
+                        />
+                    </label>
+                    
+                    <label>Rating
+                        <ul>
+                            {radioButtons}
+                        </ul>
+                    </label>
+                    
+                    <label>Notes
+                        <textarea 
+                            cols="30" 
+                            rows="10"
+                            onChange = {this.handleChange("notes")}>
+                        </textarea>
+                    </label>
+                    <button type = "submit"> Make Review </button>
+                </form>
             </div>
         )
     }

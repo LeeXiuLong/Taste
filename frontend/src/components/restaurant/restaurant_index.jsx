@@ -21,7 +21,13 @@ class RestaurantIndex extends React.Component {
                     </div>
                     <footer className="ri-footer">
                         <div className="footer-links-ri">
-                            <a href="https://github.com/LeeXiuLong/Taste">Github</a>
+                            <a href="https://github.com/LeeXiuLong/Taste">Repo</a>
+                            <ul className="footer-git-links">
+                                <li><a href="https://github.com/LeeXiuLong/">Jourdan Ooi</a></li>
+                                <li><a href="https://github.com/justinchore/">Justin Cho</a></li>
+                                <li><a href="https://github.com/thisisnahid/">Nahid Siddiqui</a></li>
+                                <li><a href="https://github.com/ellisPae/">Ellis Pae</a></li>
+                            </ul>
                         </div>
                         <div className="copyright-ri">
                             Copyright &copy; 2020 Junipers

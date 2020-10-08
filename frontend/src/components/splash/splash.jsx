@@ -26,7 +26,13 @@ class Splash extends React.Component {
                     </div>
                     <footer className="splash-footer">
                         <div className="footer-links-splash">
-                            <a href="https://github.com/LeeXiuLong/Taste">Github</a>
+                            <a href="https://github.com/LeeXiuLong/Taste">Repo</a>
+                            <ul className="footer-git-links">
+                                <li><a href="https://github.com/LeeXiuLong/">Jourdan Ooi</a></li>
+                                <li><a href="https://github.com/justinchore/">Justin Cho</a></li>
+                                <li><a href="https://github.com/thisisnahid/">Nahid Siddiqui</a></li>
+                                <li><a href="https://github.com/ellisPae/">Ellis Pae</a></li>
+                            </ul>
                         </div>
                         <div className="copyright-splash">
                             Copyright &copy; 2020 Junipers

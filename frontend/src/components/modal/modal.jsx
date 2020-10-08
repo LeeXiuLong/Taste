@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import LoginFormContainer from '../session/login_form_container';
 import SignupFormContainer from '../session/signup_form_container';
 import ListFormContainer from '../list/list_form/list_form_container';
+import RestaurantFormContainer from '../restaurant/restaurant_form/restaurant_form_container';
 import './modal.scss';
 
 function Modal({ modal, closeModal}) {
@@ -20,7 +21,12 @@ function Modal({ modal, closeModal}) {
             break;
         case 'list':
             component = <ListFormContainer />
-            break
+            break;
+        case 'restaurantFormDefault':
+            component = <RestaurantFormContainer />
+            break;
+        case 'restaurantFormList':
+            component = <RestaurantFormContainer />
         default:
             return null;
     }

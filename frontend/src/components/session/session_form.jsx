@@ -47,96 +47,102 @@ class SessionForm extends React.Component {
 
         const signupModal = (
             <div className="signup-form">
-                <form onSubmit={this.handleSubmit} key={this.state.id}>
-                    <label>
-                        <input
-                            className="signup-inputs"
-                            type="text"
-                            placeholder=" full name"
-                            value={this.state.name}
-                            onChange={this.update('name')} />
-                    </label>
-                    <br />
-                    <label>
-                        <input
-                            className="signup-inputs"
-                            type="text"
-                            placeholder=" email address"
-                            value={this.state.email}
-                            onChange={this.update('email')} />
-                    </label>
-                    <br/>
-                    <label>
-                        <input
-                            className="signup-inputs"
-                            type="password"
-                            placeholder=" password"
-                            value={this.state.password}
-                            onChange={this.update('password')} />
-                    </label>
-                    <br></br>
-                    <label>
-                        <input
-                            className="signup-inputs"
-                            type="password"
-                            placeholder=" confirm password"
-                            value={this.state.password2}
-                            onChange={this.update('password2')} />
-                    </label>
-                    {/* {errorsArray} */}
-                    <br></br>
-                    <button type="submit" className="continue-button">continue</button>
-                    <button className="demo-button" onClick={this.demoUser}>demo user</button>
-                </form>
-                    <br></br>
+                <div className="modal-formtype"><h1>{formType}</h1></div>
+                <div className="form-container">
+                    <form onSubmit={this.handleSubmit} key={this.state.id}>
+                        <label>
+                            <input
+                                className="signup-inputs"
+                                type="text"
+                                placeholder=" full name"
+                                value={this.state.name}
+                                onChange={this.update('name')} />
+                        </label>
+                        <br />
+                        <label>
+                            <input
+                                className="signup-inputs"
+                                type="text"
+                                placeholder=" email address"
+                                value={this.state.email}
+                                onChange={this.update('email')} />
+                        </label>
+                        <br/>
+                        <label>
+                            <input
+                                className="signup-inputs"
+                                type="password"
+                                placeholder=" password"
+                                value={this.state.password}
+                                onChange={this.update('password')} />
+                        </label>
+                        <br></br>
+                        <label>
+                            <input
+                                className="signup-inputs"
+                                type="password"
+                                placeholder=" confirm password"
+                                value={this.state.password2}
+                                onChange={this.update('password2')} />
+                        </label>
+                        {/* {errorsArray} */}
+                        <br></br>
+                        <button type="submit" className="continue-button">continue</button>
+                        <button className="demo-button" onClick={this.demoUser}>demo user</button>
+                    </form>
+                        <br></br>
+                </div>
             </div>
         )
 
         const loginModal = (
             <div className="login-form">
-                <form onSubmit={this.handleSubmit} key={this.state.id}>
-                    <label>
-                        <input
-                            className="login-inputs"
-                            type="text"
-                            placeholder=" full name"
-                            value={this.state.name}
-                            onChange={this.update('name')} />
-                    </label>
-                    <br />
-                    <label>
-                        <input
-                            className="login-inputs"
-                            type="text"
-                            placeholder=" email address"
-                            // value="Your email address"
-                            value={this.state.email}
-                            onChange={this.update('email')} />
-                    </label>
+                <div className="modal-formtype"><h1>{formType}</h1></div>
+                <div className="form-container">
+                    <form onSubmit={this.handleSubmit} key={this.state.id}>
+                        <label>
+                            <input
+                                className="login-inputs"
+                                type="text"
+                                placeholder=" full name"
+                                value={this.state.name}
+                                onChange={this.update('name')} />
+                        </label>
+                        <br />
+                        <label>
+                            <input
+                                className="login-inputs"
+                                type="text"
+                                placeholder=" email address"
+                                // value="Your email address"
+                                value={this.state.email}
+                                onChange={this.update('email')} />
+                        </label>
+                        <br></br>
+                        <label>
+                            <input
+                                className="login-inputs"
+                                type="password"
+                                placeholder=" password"
+                                value={this.state.password}
+                                onChange={this.update('password')} />
+                        </label>
+                        <br></br>
+                        <label>
+                            <input
+                                className="login-inputs"
+                                type="password"
+                                placeholder=" confirm password"
+                                value={this.state.password2}
+                                onChange={this.update('password2')} />
+                        </label>
+                        {/* {errorsArray} */}
+                        <br></br>
+                        <button type="submit" className="continue-button">Continue</button>
+                        <button className="demo-button" onClick={this.demoUser}>demo user</button>
+                    </form>
                     <br></br>
-                    <label>
-                        <input
-                            className="login-inputs"
-                            type="password"
-                            placeholder=" password"
-                            value={this.state.password}
-                            onChange={this.update('password')} />
-                    </label>
-                    <br></br>
-                    <label>
-                        <input
-                            className="login-inputs"
-                            type="password"
-                            placeholder=" confirm password"
-                            value={this.state.password2}
-                            onChange={this.update('password2')} />
-                    </label>
-                    {/* {errorsArray} */}
-                    <br></br>
-                    <button type="submit" className="continue-button">Continue</button>
-                    <button className="demo-button" onClick={this.demoUser}>demo user</button>
-                </form>
-                    <br></br>
+                </div>
             </div>
         )
 

@@ -37,8 +37,7 @@
        margin-left: 15px;
        float: left;
    }
-    h3.list-main-h3 {
-        // width: %;
+    .list-main-button {
         float: right;
         display: flex;
         justify-self: flex-end;
@@ -49,20 +48,31 @@
         padding: 6px 14px 6px 14px;
         font-size: 30px;
         text-align: center;
+        border: none;
     }
 }
 
 .list-subcontainer {
-    color: #ff1616;
     display: flex;
-    align-items: center;
+    // align-items: center;
+    // justify-content: center;
     width: 100%;
     ul {
         list-style: none;
         display: flex;
+        justify-content: center;
+        align-items: center;
+        justify-self: center;
+        width: 100%;
+    }
+    div {
+        list-style: none;
+        display: flex;
         flex-direction: row;
         padding: 0 0 0 0;
-        li {
+        .list-container {
+            display: flex;
+            list-style: none;
             animation: wiggle 1.5s infinite;
             justify-content: center;
             text-align: center;
@@ -83,6 +93,9 @@
             // -webkit-text-stroke-width: 2px;
             -webkit-text-stroke-color: ghostwhite;
             text-shadow: 4px 4px #1b1b1b;
+            p {
+                color: ghostwhite;
+            }
         }
     }
 }
