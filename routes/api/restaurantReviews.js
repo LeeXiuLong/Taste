@@ -39,7 +39,9 @@ router.get('/user/:user_id', (req, res) => {
 // api/restaurantreviews/list/:list_id
 router.get('/list/:list_id', (req, res) => {
     List.findById(req.params.list_id)
-        .then(list => res.json(list.restaurantReviews))
+        .then(list => {
+            return res.json(list.restaurantReviews)
+        })
         .catch(err => res.status(400).json({ noListRestaurantReviews: 'No restaurant reviews under this list' }));
 });
 

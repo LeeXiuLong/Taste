@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { openModal } from '../../actions/modal_actions';
 import { fetchUserReviews } from '../../actions/restaurant_review_actions';
 import RestaurantIndex from './restaurant_index';
@@ -14,4 +15,4 @@ const mapDispatchToProps = dispatch => ({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RestaurantIndex);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RestaurantIndex));

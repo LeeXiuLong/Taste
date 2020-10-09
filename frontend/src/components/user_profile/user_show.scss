@@ -37,6 +37,21 @@
     }
 }
 
+.us-top-left-container {
+    margin-top: 30px;
+    width: 900px;
+    height: 600px;
+    border: 2pt solid #1b1b1b;
+    border-radius: 8px;
+    background: #1b1b1b;
+    color: ghostwhite;
+    display: flex;
+    // align-items: center;
+    h1 {
+        text-align: center;
+    }
+}
+
 ul.insights-ul-us {
     list-style: none;
     flex-direction: row;
@@ -72,13 +87,6 @@ ul.insights-ul-us {
     display: flex;
     flex-direction: row;
     width: 100%;
-    // justify-content: center;
-    h1 {
-        float: left;
-        display: flex;
-        justify-self: flex-start;
-        width: 100%;
-    }
     .us-insights {
          float: right;
          display: flex;

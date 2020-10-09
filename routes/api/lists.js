@@ -12,7 +12,6 @@ const validateListInput = require('../../validation/new-list');
 const { json } = require("body-parser"); 
 const { db } = require("../../models/User");
 
-
 router.post('/new', //USER CREATES NEW LIST -> GOES INTO USER'S LISTS ARRAY
     passport.authenticate("jwt", { session: false }), 
     (req, res) => {

@@ -147,7 +147,7 @@ class SessionForm extends React.Component {
                         </label> */}
                         {/* {errorsArray} */}
                         {/* <br></br> */}
-                        <button type="submit" className="continue-button">Continue</button>
+                        <button type="submit" className="continue-button">continue</button>
                         <button className="demo-button" onClick={this.demoUser}>demo user</button>
                     </form>
                         {errors}

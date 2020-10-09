@@ -4,16 +4,20 @@ import './user_show.scss'
 
 class UserShow extends React.Component {
 
+
+
     render() {
         const { currentUser } = this.props;
-
+        console.log(currentUser)
         return (
             <div>
                 <NavBar />
                 <div className="user-show-container">
                     <div className="user-show-subcontainer">
                         <div className='us-header-container'>
-                            <h1>{currentUser.name}</h1>
+                            <div className="us-top-left-container">
+                                <h1>{currentUser.name}</h1>
+                            </div>
                             <div className="us-insights">
                                 <ul className="insights-ul-us">
                                     <li className="following-us-insights">
@@ -33,11 +37,6 @@ class UserShow extends React.Component {
                                     <div className="recs-container">
 
                                     </div>
-                                </div>
-                            </div>
-                            <div className="right-bottom-container">
-                                <div>
-                                    <h1>updates</h1>
                                 </div>
                             </div>
                     </div>
