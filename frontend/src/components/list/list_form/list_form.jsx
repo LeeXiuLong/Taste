@@ -15,6 +15,7 @@ class ListForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         this.props.createList(this.state)
+            .then()
             .then(this.props.closeModal())
     }
 
