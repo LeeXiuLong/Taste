@@ -4,10 +4,20 @@ import { openModal } from '../../actions/modal_actions';
 import { fetchUserReviews } from '../../actions/restaurant_review_actions';
 import RestaurantIndex from './restaurant_index';
 
-const mapStateToProps = (state) => ({
-    currentUser: state.session.user,
-    reviews: state.entities.restaurantReviews
-});
+const mapStateToProps = (state, ownProps) => {
+    let allReviews = [];
+    if(state.entities.restaurantReviews.data){
+        allReviews = state.entities.restaurantReviews.data;
+    }
+    
+    let thisReviews = allReviews.filter(review => {
+        return review.user === ownProps.match.params.userId
+    })
+    return{
+        currentUser: state.session.user,
+        reviews: thisReviews,
+    }
+};
 
 const mapDispatchToProps = dispatch => ({
     openModal: (modal) => dispatch(openModal(modal)),

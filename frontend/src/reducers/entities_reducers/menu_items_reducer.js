@@ -6,10 +6,14 @@ const menuItemsReducer = (state = {}, action) => {
     switch (action.type) {
         case RECEIVE_MENU_ITEM:
             newState = Object.assign({}, state);
-            newState[action.review.data._id] = action.menuItem.data;
+            newState[action.menuItem.data._id] = action.menuItem.data;
             return newState;
         case RECEIVE_MENU_ITEMS:
-            return Object.assign({}, state, action.menuItems);
+            newState = Object.assign({}, state);
+            action.menuItems.data.forEach(menuItem=> {
+                newState[menuItem._id] = menuItem
+            })
+            return newState;
         default:
             return state;
     }
