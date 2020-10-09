@@ -1,6 +1,8 @@
 import React from 'react';
-import './restaurant_form.scss';
+import '../../modal/modal.scss'
+// import './restaurant_form.scss';
 import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from 'react-places-autocomplete';
+import { googleApiKey } from '../../../config/keys';
 
 
 
@@ -54,39 +56,45 @@ class RestaurantForm extends React.Component {
     };
 
 
-    renderSearch() {
-        return (
-            <PlacesAutocomplete
-                value={this.state.address}
-                onChange={this.handleChangeSearch}
-                onSelect={this.handleSelectSearch}
-            >
-                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                    <div>
-                        <input
-                            {...getInputProps({
-                                placeholder: 'Search Places ...',
-                                className: 'location-search-input',
-                            })}
-                        />
-                        <div className="autocomplete-dropdown-container">
-                            {loading && <div>Loading...</div>}
-                            {suggestions.map(suggestion => {
-                                const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
-                                // inline style for demonstration purpose
-                                const style = suggestion.active ? { backgroundColor: '#fafafa', cursor: 'pointer' } : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                return (
-                                    <div {...getSuggestionItemProps(suggestion, { className, style, })}>
-                                        <span id="description">{suggestion.description}</span>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                )}
-            </PlacesAutocomplete>
-        );
-    }
+    // apiWrapper
+
+    // renderSearch() {
+    //     return (
+    //         <div>
+    //         <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=myCallbackFunc`}></script>
+    //         <PlacesAutocomplete
+    //             value={this.state.address}
+    //             onChange={this.handleChangeSearch}
+    //             onSelect={this.handleSelectSearch}
+    //             googleCallbackName="myCallbackFunc"
+    //         >
+    //             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+    //                 <div>
+    //                     <input
+    //                         {...getInputProps({
+    //                             placeholder: 'Search Places ...',
+    //                             className: 'location-search-input',
+    //                         })}
+    //                     />
+    //                     <div className="autocomplete-dropdown-container">
+    //                         {loading && <div>Loading...</div>}
+    //                         {suggestions.map(suggestion => {
+    //                             const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
+    //                             // inline style for demonstration purpose
+    //                             const style = suggestion.active ? { backgroundColor: '#fafafa', cursor: 'pointer' } : { backgroundColor: '#ffffff', cursor: 'pointer' };
+    //                             return (
+    //                                 <div {...getSuggestionItemProps(suggestion, { className, style, })}>
+    //                                     <span id="description">{suggestion.description}</span>
+    //                                 </div>
+    //                             );
+    //                         })}
+    //                     </div>
+    //                 </div>
+    //             )}
+    //         </PlacesAutocomplete>
+    //         </div>
+    //     );
+    // }
 
 
 
@@ -101,37 +109,37 @@ class RestaurantForm extends React.Component {
         }
 
         return (
-            <div>
-                <div className="restaurant-form-header">
-                    <h1>Create a Review</h1>
-                </div>
-                <form onSubmit={this.handleSubmit} className="restaurant-form">
+                <div className="menu-item-form-container">
+                    <div className="modal-formtype">
+                         <h1>create a review</h1>
+                    </div>
+                <form onSubmit={this.handleSubmit} className="mi-form-container">
                     <label>
-                        Name
-                {this.renderSearch()}
-                        {/* <input type="text" onChange={this.handleChange("name")} /> */}
-                    </label>
-
-                    {/* <label>
-                Address
-                  <AddressSearch onChange={this.handleChange} className="places-address"/>
-                <input type="text" value={this.state.address}/>
-              </label> */}
-
-                    <label>
-                        Rating
-                <ul>{radioButtons}</ul>
+                        name
+                        {/* {this.renderSearch()} */}
+                        <input type="text" onChange={this.handleChange("name")} value={this.state.name} />
                     </label>
 
                     <label>
-                        Notes
-                <textarea
-                            cols="30"
-                            rows="10"
+                        address
+                {/* <AddressSearch onChange={this.handleChange} className="places-address"/> */}
+                        <input type="text" onChange={this.handleChange("address")} value={this.state.address}/>
+                    </label>
+
+                    <label>
+                       <p>rating:</p>
+                        <ul>{radioButtons}</ul>
+                    </label>
+                    <br />
+                    <label>
+                         <textarea
+                            placeholder="notes"
+                            style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
                             onChange={this.handleChange("notes")}
-                        ></textarea>
+                            ></textarea>
                     </label>
-                    <button type="submit"> Make Review </button>
+                    <br />
+                    <button type="submit" className="continue-button"> make review </button>
                 </form>
             </div>
         );

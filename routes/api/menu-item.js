@@ -60,12 +60,23 @@ router.get('/:id', (req, res) => {
         .catch(err => res.status(400).json({ noMenuItem: 'This menu item review does not exist' }));
 });
 
+
+
 router.get('/restaurantreview/:rr_id', (req, res) => {
     RestaurantReview.findById(req.params.rr_id) // find one restaurant review
-        .sort({ rating: -1 })
-        .then(review => res.json(review.menuItemsReviews))
-        .catch(err => res.status(400).json({ noRestaurantMenuItemReviews: 'No menu item reviews under this restaurant'}));
+        // .sort({ rating: -1 })
+        .then(rr => {
+            let rrArr = []
+            rr.menuItemsReviews.forEach((mi => {
+                rrArr.push(MenuItem.findById(mi._id))
+            }))
+            return Promise.all(rrArr)
+                .then(miReviews => res.json(miReviews))
+        })
+        .catch(err => res.status(400).json({ noRestaurantMenuItemReviews: 'No menu item reviews under this restaurant' }));
 });
+
+
 
 // api/menuitems/resua
 router.patch("/restaurantreview/:rr_id/edit/:mi_id",

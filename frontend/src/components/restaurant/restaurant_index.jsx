@@ -3,6 +3,7 @@ import NavBar from '../nav/navbar_container';
 import { Link } from 'react-router-dom';
 import './restaurant_index.scss';
 import { IoIosStar } from 'react-icons/io';
+import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from 'react-places-autocomplete';
 
 class RestaurantIndex extends React.Component {
 
@@ -17,8 +18,8 @@ class RestaurantIndex extends React.Component {
 
         if (!this.props.reviews) return null;
 
-        if (this.props.reviews.data) {
-            reviewsArr = Object.values(this.props.reviews.data)
+        if (this.props.reviews) {
+            reviewsArr = Object.values(this.props.reviews)
 
 
             let reviews = reviewsArr.map(review => {
