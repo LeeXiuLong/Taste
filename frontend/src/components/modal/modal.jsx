@@ -1,10 +1,12 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { closeModal } from '../../actions/modal_actions';
 import { connect } from 'react-redux';
 import LoginFormContainer from '../session/login_form_container';
 import SignupFormContainer from '../session/signup_form_container';
 import ListFormContainer from '../list/list_form/list_form_container';
 import RestaurantFormContainer from '../restaurant/restaurant_form/restaurant_form_container';
+import MenuItem from '../menu_items/menu_item_form_container';
 import './modal.scss';
 
 function Modal({ modal, closeModal}) {
@@ -29,8 +31,8 @@ function Modal({ modal, closeModal}) {
             component = <RestaurantFormContainer />
             break;
         case "restaurantMenuItem":
-            console.log("Something");
-            // component = <RestaurantMenuItemFormContainer />
+            component = <MenuItem />
+            break;
         default:
             return null;
     }
@@ -56,4 +58,4 @@ const mapDispatchToProps = dispatch => ({
     closeModal: () => dispatch(closeModal())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Modal);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Modal));

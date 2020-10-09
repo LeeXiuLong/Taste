@@ -1,11 +1,14 @@
 import React from 'react';
 import NavBar from '../../nav/navbar_container';
-import { Link } from 'react-router-dom';
+import './restaurant_show.scss'
+// import { Link } from 'react-router-dom';
 // import './list_show.scss';
 
 class RestaurantShow extends React.Component {
 
     componentDidMount() {
+        this.props.fetchCurrentReview();
+        this.props.fetchMenuItems(this.props.match.params.reviewId);
     }
 
 
@@ -33,15 +36,18 @@ class RestaurantShow extends React.Component {
         //         console.log(allReviews)
         //     }
         // }
+        if (!this.props.review) return null;
+        if (!this.props.menuItems) return null;
+        console.log(this.props.review)
 
         return (
-            <div className="list-show-main">
+            <div className="rs-main">
                 <NavBar />
-                <div className="list-show-container">
-                    <div className="list-show-subcontainer">
-                        <div className="ls-list-name">
-                            <h1>{this.props.list.name}</h1>
-                            <button className="list-main-button" onClick={() => this.props.openModal('restaurantFormList')}>+</button>
+                <div className="rs-container">
+                    <div className="rs-subcontainer">
+                        <div className="rs-name">
+                            <h1>{this.props.review.name}</h1>
+                            <button className="list-main-button" onClick={() => this.props.openModal('restaurantMenuItem')}>+</button>
                         </div>
                         <div>
                         </div>

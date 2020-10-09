@@ -14,6 +14,11 @@ class ListIndex extends React.Component {
         this.props.fetchUserLists(this.props.currentUser.id)
     }
 
+    // componentDidUpdate(prevProps) {
+    //     if (Object.keys(this.props.lists).length !== Object.keys(prevProps.lists).length) {
+    //         this.props.fetchUserLists(this.props.currentUser.id)
+    //     }
+    // }
 
     render() {
 
@@ -29,7 +34,9 @@ class ListIndex extends React.Component {
 
             let lists = listArr.map(list => {
                 return <div className="list-container" key={list._id}>
-                            <Link to={`/lists/${list._id}`}><p>{list.name}</p></Link>
+                            <Link to={`/lists/${list._id}`} style={{ textDecoration: 'none' }}>
+                                <p>{list.name}</p>
+                            </Link>
                         </div>
                 
             })

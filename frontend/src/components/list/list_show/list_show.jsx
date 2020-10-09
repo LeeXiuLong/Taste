@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from '../../nav/navbar_container';
 import { Link } from 'react-router-dom';
-// import './list_show.scss';
+import './list_show.scss';
 
 class ListShow extends React.Component {
     // constructor(props) {
@@ -10,7 +10,11 @@ class ListShow extends React.Component {
 
     //
     componentDidMount() {
-        this.props.fetchCurrentList().then(list => this.props.fetchListReviews(list.currentList.data._id));
+        this.props.fetchReviews();
+        this.props.fetchCurrentList()
+        .then(list => this.props.fetchListReviews(list.currentList.data._id))
+        // this.props.fetchEachReview(this.props.list.restaurantReviews)
+        // console.log(this.props.list.restaurantReviews)
     }
 
     // componentDidUpdate(prevProps){
@@ -19,28 +23,43 @@ class ListShow extends React.Component {
     //  }
     // }
 
+    // fetchReview(reviewId) {
+    //     let reviewsArr, allRArr = [];
+    //     this.props.fetchReview(reviewId);
+    //     if (this.props.reviews.data) {
+    //         reviewsArr = Object.values(this.props.reviews.data)
+    //         console.log(allRArr)
+
+    //         reviewsArr.map(review => {
+    //             allRArr.push(this.props.fetchReview(review._id))
+    //         })
+
+    //     } 
+    // }
 
     render() {
 
         let reviewArr;
         let allReviews = [];
-
+    
         if (!this.props.reviews) return null;
 
         if (this.props.reviews.data) {
             reviewArr = Object.values(this.props.reviews.data)
 
-
             let restaurantReviews = reviewArr.map(review => {
+                    // review1 = this.fetchReview(review._id);
+                    // console.log(review1)
                 return <div className="review-container">
-                    <Link to={`/review/${review.id}`}><p>{review.name}</p></Link>
+                    <Link to={`/reviews/${review._id}`} style={{ textDecoration: 'none' }}>
+                        <p>{review._id}</p>
+                    </Link>
                 </div>
 
             })
 
             for (let i = 0; i < restaurantReviews.length; i += 5) {
-                allReviews.push(<div className="row">{restaurantReviews.slice(i, i + 5)}</div>)
-                console.log(allReviews)
+                allReviews.push(<div key={i} className="row">{restaurantReviews.slice(i, i + 5)}</div>)
             }
         } 
 

@@ -22,16 +22,18 @@ class RestaurantIndex extends React.Component {
 
 
             let reviews = reviewsArr.map(review => {
-                return <div className="list-container" key={review.id}>
-                    <Link to={`/reviews/${review.id}`}><p>{review.name} {review.rating}/10 {<IoIosStar/>}</p>
-                         <p>{review.notes}</p>
+                return <div className="review-container" key={review._id}>
+                    <Link to={`/reviews/${review._id}`} style={{ textDecoration: 'none' }}>
+                        <h1 className="review-name">{review.name}</h1>
                     </Link>
-                </div>
+                        <h2 className="notes">{review.notes}</h2>
+                    <h2 className="rating"><IoIosStar /> <h2 className="rating-text">{review.rating}/10</h2> </h2>
+                    </div>
 
             })
 
-            for (let i = 0; i < reviews.length; i += 4) {
-                allReviews.push(<div key={i} className="row">{reviews.slice(i, i + 4)}</div>)
+            for (let i = 0; i < reviews.length; i += 2) {
+                allReviews.push(<div key={i} className="row">{reviews.slice(i, i + 2)}</div>)
             }
         } 
 
@@ -40,9 +42,13 @@ class RestaurantIndex extends React.Component {
                 <NavBar />
                 <div className="ri-container">
                     <div className="ri-subcontainer">
-                        <div className="ri-main-left">
+                        <div className="ri-top">
                             <h1>your restaurants</h1>
-                            <button className="list-main-button" onClick={() => this.props.openModal('restaurantFormDefault')}>+</button>
+                            <div className="button-container">
+                                <button className="list-main-button" onClick={() => this.props.openModal('restaurantFormDefault')}>+</button>
+                            </div>
+                        </div>
+                        <div className="ri-main-left">
                         </div>
                         <div className="ri-main-right">
                             {allReviews}

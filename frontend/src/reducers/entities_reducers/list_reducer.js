@@ -5,7 +5,7 @@ const listsReducer = (state = {}, action) => {
     switch (action.type) {
         case RECEIVE_LIST:
             newState = Object.assign({}, state);
-            if (newState.data) { newState.data.push(action.list.data) };
+            newState[action.list.data._id] = action.list.data
             return newState;
             //if(newState.data) { newState.data[action.list.data.id] = action.list.data}
         case RECEIVE_LISTS:
@@ -15,7 +15,6 @@ const listsReducer = (state = {}, action) => {
             })
             return newState;
         case RECEIVE_CURRENT_LIST:
-        
             return action.currentList.data;
         default:
             return state;
