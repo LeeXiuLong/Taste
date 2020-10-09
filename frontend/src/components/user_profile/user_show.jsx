@@ -1,5 +1,6 @@
 import React from 'react';
 import NavBar from '../nav/navbar_container';
+import { Link } from 'react-router-dom';
 import './user_show.scss'
 
 class UserShow extends React.Component {
@@ -17,6 +18,14 @@ class UserShow extends React.Component {
                         <div className='us-header-container'>
                             <div className="us-top-left-container">
                                 <h1>{currentUser.name}</h1>
+                                <div className="user-links-containter">
+                                    <Link to={`/${currentUser.id}/lists`} style={{ textDecoration: 'none' }}><h3>lists</h3></Link>
+                                    <br/>
+                                    <Link to={`/${currentUser.id}/restaurants`} style={{ textDecoration: 'none' }}><h3>restaurants</h3></Link>
+                                </div>
+                                <div className="imgbg-us">
+
+                                </div>
                             </div>
                             <div className="us-insights">
                                 <ul className="insights-ul-us">

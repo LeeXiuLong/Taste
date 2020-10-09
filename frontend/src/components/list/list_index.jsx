@@ -14,11 +14,6 @@ class ListIndex extends React.Component {
         this.props.fetchUserLists(this.props.currentUser.id)
     }
 
-    // componentDidUpdate(prevProps) {
-    //     if (Object.keys(this.props.lists).length !== Object.keys(prevProps.lists).length) {
-    //         this.props.fetchUserLists(this.props.currentUser.id)
-    //     }
-    // }
 
     render() {
 

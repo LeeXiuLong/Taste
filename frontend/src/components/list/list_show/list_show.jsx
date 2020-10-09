@@ -2,40 +2,16 @@ import React from 'react';
 import NavBar from '../../nav/navbar_container';
 import { Link } from 'react-router-dom';
 import './list_show.scss';
+import { IoIosStar } from 'react-icons/io';
+import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from 'react-places-autocomplete';
 
 class ListShow extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    // }
-
-    //
+   
     componentDidMount() {
         this.props.fetchReviews();
         this.props.fetchCurrentList()
         .then(list => this.props.fetchListReviews(list.currentList.data._id))
-        // this.props.fetchEachReview(this.props.list.restaurantReviews)
-        // console.log(this.props.list.restaurantReviews)
     }
-
-    // componentDidUpdate(prevProps){
-    //  if(prevProps !== this.props){
-    //     this.props.fetchListReviews(this.props.list._id)
-    //  }
-    // }
-
-    // fetchReview(reviewId) {
-    //     let reviewsArr, allRArr = [];
-    //     this.props.fetchReview(reviewId);
-    //     if (this.props.reviews.data) {
-    //         reviewsArr = Object.values(this.props.reviews.data)
-    //         console.log(allRArr)
-
-    //         reviewsArr.map(review => {
-    //             allRArr.push(this.props.fetchReview(review._id))
-    //         })
-
-    //     } 
-    // }
 
     render() {
 
@@ -48,14 +24,13 @@ class ListShow extends React.Component {
             reviewArr = Object.values(this.props.reviews.data)
 
             let restaurantReviews = reviewArr.map(review => {
-                    // review1 = this.fetchReview(review._id);
-                    // console.log(review1)
-                return <div className="review-container">
+                return <div className="review-container" key={review._id}>
                     <Link to={`/reviews/${review._id}`} style={{ textDecoration: 'none' }}>
-                        <p>{review._id}</p>
+                        <h1 className="review-name">{review.name}</h1>
                     </Link>
+                    <h2 className="notes">{review.notes}</h2>
+                    <h2 className="rating"><IoIosStar /> <h2 className="rating-text">{review.rating}/10</h2> </h2>
                 </div>
-
             })
 
             for (let i = 0; i < restaurantReviews.length; i += 5) {

@@ -40,10 +40,19 @@ router.get('/user/:user_id', (req, res) => {
 router.get('/list/:list_id', (req, res) => {
     List.findById(req.params.list_id)
         .then(list => {
-            return res.json(list.restaurantReviews)
-        })
-        .catch(err => res.status(400).json({ noListRestaurantReviews: 'No restaurant reviews under this list' }));
-});
+            let reviewsArr = [];
+            list.restaurantReviews.forEach((review) => {
+                reviewsArr.push(RestaurantReview.findById(review._id));
+            });
+            return Promise.all(reviewsArr)
+                .then(reviews => {
+                    return res.json(reviews);
+                })
+                .catch(err => {
+                    return res.status(404).json({noReviews: "Reviews do not exist for this list"})
+                })
+        });
+})
 
 
 

@@ -1,7 +1,7 @@
 .user-show-container {
     width: 100%;
     height: 100%;
-    background-color: ghostwhite;
+    background-color: #1b1b1b;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,7 +12,7 @@
 .user-show-subcontainer {
     width: 80%;
     height: 1000px;
-    background-color: ghostwhite;
+    background-color: #1b1b1b;
 }
 
 .us-bottom-container {
@@ -46,9 +46,35 @@
     background: #1b1b1b;
     color: ghostwhite;
     display: flex;
-    // align-items: center;
+    flex-direction: column;
     h1 {
         text-align: center;
+        margin-left: 15px;
+    }
+}
+
+.imgbg-us {
+    width: 400px;
+    height: 400px;
+    background: url("i-like-ur-taste-grey.png") center no-repeat;
+    background-size: 350px;
+}
+
+.user-links-containter {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    justify-content: center;
+    align-items: center;
+    h3 {
+        height: 30px;
+        width: 100px;
+        background-color: ghostwhite;
+        color: #1b1b1b;
+        text-align: center;
+        padding: 20px;
+        border-radius: 8px;
+        justify-content: center;
     }
 }
 

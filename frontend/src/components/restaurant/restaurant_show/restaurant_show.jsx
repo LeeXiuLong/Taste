@@ -1,8 +1,9 @@
 import React from 'react';
 import NavBar from '../../nav/navbar_container';
 import './restaurant_show.scss'
-// import { Link } from 'react-router-dom';
-// import './list_show.scss';
+import { Link } from 'react-router-dom';
+import { IoIosStar } from 'react-icons/io';
+
 
 class RestaurantShow extends React.Component {
 
@@ -11,34 +12,31 @@ class RestaurantShow extends React.Component {
         this.props.fetchMenuItems(this.props.match.params.reviewId);
     }
 
-
-
     render() {
 
-        // let reviewArr;
-        // let allReviews = [];
+        let menuArr;
+        let allMenuItems = [];
 
-        // if (!this.props.reviews) return null;
-
-        // if (this.props.reviews.data) {
-        //     reviewArr = Object.values(this.props.reviews.data)
-
-
-        //     let restaurantReviews = reviewArr.map(review => {
-        //         return <div className="review-container">
-        //             <Link to=""><p>{review.name}</p></Link>
-        //         </div>
-
-        //     })
-
-        //     for (let i = 0; i < restaurantReviews.length; i += 5) {
-        //         allReviews.push(<div className="row">{restaurantReviews.slice(i, i + 5)}</div>)
-        //         console.log(allReviews)
-        //     }
-        // }
-        if (!this.props.review) return null;
         if (!this.props.menuItems) return null;
-        console.log(this.props.review)
+        if (!this.props.review) return null;
+
+        if (this.props.menuItems) {
+            menuArr = Object.values(this.props.menuItems)
+
+            let menuItems = menuArr.map(item => {
+                return <div className="mi-container">
+                    <h1 className="item-name">{item.name}</h1>
+                    <h3 className="item-rating">{item.rating}/10  <IoIosStar /></h3>
+                    <p className="item-notes">{item.notes}</p>
+                </div>
+
+            })
+
+            for (let i = 0; i < menuItems.length; i += 5) {
+                allMenuItems.push(<div className="row">{menuItems.slice(i, i + 5)}</div>)
+            }
+        }
+
 
         return (
             <div className="rs-main">
@@ -50,6 +48,7 @@ class RestaurantShow extends React.Component {
                             <button className="list-main-button" onClick={() => this.props.openModal('restaurantMenuItem')}>+</button>
                         </div>
                         <div>
+                            {allMenuItems}
                         </div>
                     </div>
                     <footer className="us-footer">
