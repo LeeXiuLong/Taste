@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
   window.getState = store.getState;
 
   // // Create the script tag, set the appropriate attributes
-  // let script = document.createElement('script');
-  // script.src=`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&callback=myCallbackFunc`;
+  let script = document.createElement('script');
+  script.src=`https://maps.googleapis.com/maps/api/js?key=${keys.googleApiKey}&callback=myCallbackFunc`;
   // script.defer = true;
 
   // // Attach your callback function to the `window` object
@@ -50,8 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
  // Create the script tag, set the appropriate attributes
-  let script = document.createElement('script');
-  script.src =`https://maps.googleapis.com/maps/api/js?key=AIzaSyAlTG4pWd_djWygNL4N8oKmZIJnhj4BB5o&libraries=places`;
+ 
   // script.defer = true;
 
   // // Attach your callback function to the `window` object
