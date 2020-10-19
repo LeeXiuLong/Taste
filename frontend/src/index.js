@@ -35,8 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // let script = document.createElement('script');
   // script.src=`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&callback=myCallbackFunc`;
   // script.defer = true;
-  let script = document.createElement('script');
-  script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAlTG4pWd_djWygNL4N8oKmZIJnhj4BB5o&libraries=places`;
 
   // // Attach your callback function to the `window` object
   // window.myCallbackFunc = function () {
