@@ -48,3 +48,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   ReactDOM.render(<Root store={store} />, root);
 });
+
+ // Create the script tag, set the appropriate attributes
+  let script = document.createElement('script');
+  script.src =`https://maps.googleapis.com/maps/api/js?key=AIzaSyAlTG4pWd_djWygNL4N8oKmZIJnhj4BB5o&libraries=places`;
+  // script.defer = true;
+
+  // // Attach your callback function to the `window` object
+  // window.myCallbackFunc = function () {
+  //   // JS API is loaded and available
+  // };
+
+  // Append the 'script' element to 'head'
+  document.head.appendChild(script);
