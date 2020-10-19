@@ -44,6 +44,7 @@ class RestaurantForm extends React.Component {
     };
 
     handleSelectSearch = (address) => {
+
         // const { adr_address, name, formatted_address } = address
         // this.setState({ name: address.split(",")[0]})
         geocodeByAddress(address)
@@ -53,48 +54,50 @@ class RestaurantForm extends React.Component {
         // .then(results => getLatLng(results[0]))
         // .then(latLng => console.log('Success', latLng))
         // .catch(error => console.error('Error', error));
+        debugger
     };
 
 
     // apiWrapper
 
-    // renderSearch() {
-    //     return (
-    //         <div>
-    //         <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=myCallbackFunc`}></script>
-    //         <PlacesAutocomplete
-    //             value={this.state.address}
-    //             onChange={this.handleChangeSearch}
-    //             onSelect={this.handleSelectSearch}
-    //             googleCallbackName="myCallbackFunc"
-    //         >
-    //             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-    //                 <div>
-    //                     <input
-    //                         {...getInputProps({
-    //                             placeholder: 'Search Places ...',
-    //                             className: 'location-search-input',
-    //                         })}
-    //                     />
-    //                     <div className="autocomplete-dropdown-container">
-    //                         {loading && <div>Loading...</div>}
-    //                         {suggestions.map(suggestion => {
-    //                             const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
-    //                             // inline style for demonstration purpose
-    //                             const style = suggestion.active ? { backgroundColor: '#fafafa', cursor: 'pointer' } : { backgroundColor: '#ffffff', cursor: 'pointer' };
-    //                             return (
-    //                                 <div {...getSuggestionItemProps(suggestion, { className, style, })}>
-    //                                     <span id="description">{suggestion.description}</span>
-    //                                 </div>
-    //                             );
-    //                         })}
-    //                     </div>
-    //                 </div>
-    //             )}
-    //         </PlacesAutocomplete>
-    //         </div>
-    //     );
-    // }
+    renderSearch() {
+
+        return (
+            <div>
+            {/* <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=myCallbackFunc`}></script> */}
+            <PlacesAutocomplete
+                value={this.state.address}
+                onChange={this.handleChangeSearch}
+                onSelect={this.handleSelectSearch}
+                googleCallbackName="myCallbackFunc"
+            >
+                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                    <div>
+                        <input
+                            {...getInputProps({
+                                placeholder: 'Search Places ...',
+                                className: 'location-search-input',
+                            })}
+                        />
+                        <div className="autocomplete-dropdown-container">
+                            {loading && <div>Loading...</div>}
+                            {suggestions.map(suggestion => {
+                                const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
+                                // inline style for demonstration purpose
+                                const style = suggestion.active ? { backgroundColor: '#fafafa', cursor: 'pointer' } : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                return (
+                                    <div {...getSuggestionItemProps(suggestion, { className, style, })}>
+                                        <span id="description">{suggestion.description}</span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
+            </PlacesAutocomplete>
+            </div>
+        );
+    }
 
 
 
@@ -107,6 +110,7 @@ class RestaurantForm extends React.Component {
             let button = <label>{i}<input name="rating" type="radio" value={i} onChange={this.handleChange("rating")} /></label>
             radioButtons.push(button);
         }
+    
 
         return (
                 <div className="menu-item-form-container">
@@ -116,8 +120,8 @@ class RestaurantForm extends React.Component {
                 <form onSubmit={this.handleSubmit} className="mi-form-container">
                     <label>
                         name
-                        {/* {this.renderSearch()} */}
-                        <input type="text" onChange={this.handleChange("name")} value={this.state.name} />
+                        {this.renderSearch()}
+                        {/* <input type="text" onChange={this.handleChange("name")} value={this.state.name} /> */}
                     </label>
 
                     <label>
