@@ -5,8 +5,6 @@ import './user_show.scss'
 
 class UserShow extends React.Component {
 
-
-
     render() {
         const { currentUser } = this.props;
         console.log(currentUser)

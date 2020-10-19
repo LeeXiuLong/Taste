@@ -24,7 +24,9 @@ class ListIndex extends React.Component {
         if (!this.props.lists) return null;
 
         if (this.props.lists) {
-            listArr = Object.values(this.props.lists)
+            listArr = Object.values(this.props.lists).filter(list => {
+                return list._id;
+            })
             
 
             let lists = listArr.map(list => {

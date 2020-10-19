@@ -23,7 +23,7 @@ class SessionForm extends React.Component {
         e.preventDefault();
         const user = Object.assign({}, this.state);
         this.props.processForm(user)
-            // .then(this.props.closeModal)
+            .then(this.props.closeModal)
     }
 
     update(field) {
@@ -50,7 +50,7 @@ class SessionForm extends React.Component {
         let errorsArray = this.props.errors;
         if (this.props.errors.session) {
             errorsArray = Object.values(this.props.errors.session);
-            console.log(errorsArray)
+            // console.log(errorsArray)
             errors = errorsArray.map(error => <p key={errorsArray.length - 1} className="session-errors"> {error} </p>)
         };
 
