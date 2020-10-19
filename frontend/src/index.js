@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
  // Create the script tag, set the appropriate attributes
- 
+
   // script.defer = true;
 
   // // Attach your callback function to the `window` object
