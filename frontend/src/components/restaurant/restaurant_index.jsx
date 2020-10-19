@@ -28,7 +28,7 @@ class RestaurantIndex extends React.Component {
                         <h1 className="review-name">{review.name}</h1>
                     </Link>
                         <h2 className="notes">{review.notes}</h2>
-                    <h2 className="rating"><IoIosStar /> <h2 className="rating-text">{review.rating}/10</h2> </h2>
+                    <div className="rating"><IoIosStar /> <h2 className="rating-text">{review.rating}/10</h2> </div>
                     </div>
 
             })

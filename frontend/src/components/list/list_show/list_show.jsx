@@ -29,12 +29,12 @@ class ListShow extends React.Component {
                         <h1 className="review-name">{review.name}</h1>
                     </Link>
                     <h2 className="notes">{review.notes}</h2>
-                    <h2 className="rating"><IoIosStar /> <h2 className="rating-text">{review.rating}/10</h2> </h2>
+                    <div className="rating"><IoIosStar /> <h2 className="rating-text">{review.rating}/10</h2> </div>
                 </div>
             })
 
             for (let i = 0; i < restaurantReviews.length; i += 5) {
-                allReviews.push(<div key={i} className="row">{restaurantReviews.slice(i, i + 5)}</div>)
+                allReviews.push(<div key={restaurantReviews[i]._id} className="row">{restaurantReviews.slice(i, i + 5)}</div>)
             }
         } 
 
