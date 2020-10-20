@@ -4,16 +4,19 @@ import { fetchListReviews, fetchReviews} from '../../../actions/restaurant_revie
 import { openModal } from '../../../actions/modal_actions';
 import ListShow from './list_show';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, ownProps) => {
+
+  return {
     currentUser: state.session.user,
     list: state.entities.lists,
-    reviews: state.entities.restaurantReviews
-});
+    reviews: state.entities.restaurantReviews,
+  }
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchList: (listId) => dispatch(fetchList(listId)),
   fetchListReviews: (listId) => dispatch(fetchListReviews(listId)),
-  fetchReviews: () => dispatch(fetchReviews()),
+  // fetchReviews: () => dispatch(fetchReviews()),
   // fetchReview: (reviewId) => dispatch(fetchReview(reviewId)),
   // fetchEachReview: (reviewIds) => dispatch(fetchEachReview(reviewIds)),
   openModal: (modal) => dispatch(openModal(modal)),

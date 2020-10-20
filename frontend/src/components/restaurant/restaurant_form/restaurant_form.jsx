@@ -2,7 +2,8 @@ import React from 'react';
 import '../../modal/modal.scss'
 // import './restaurant_form.scss';
 import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from 'react-places-autocomplete';
-import { googleApiKey } from '../../../config/keys';
+// import { googleApiKey } from '../../../config/keys_prod';
+import * as keys from '../../../config/keys';
 
 
 
@@ -30,7 +31,10 @@ class RestaurantForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         if (this.props.listId) {
-            this.props.createReview(this.state).then(review => this.props.addReviewToList(this.props.listId, review.id))
+            this.props.createReview(this.state).then(review => {
+                console.log(review);
+                this.props.addReviewToList(this.props.listId, review.review.data._id)
+            })
                 .then(this.props.closeModal());
         } else {
             this.props.createReview(this.state).then(this.props.closeModal())
@@ -54,7 +58,6 @@ class RestaurantForm extends React.Component {
         // .then(results => getLatLng(results[0]))
         // .then(latLng => console.log('Success', latLng))
         // .catch(error => console.error('Error', error));
-        debugger
     };
 
 
@@ -64,7 +67,7 @@ class RestaurantForm extends React.Component {
 
         return (
             <div>
-            {/* <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=myCallbackFunc`}></script> */}
+            {/* <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${keys.googleApiKey}&libraries=places&callback=myCallbackFunc`}></script> */}
             <PlacesAutocomplete
                 value={this.state.address}
                 onChange={this.handleChangeSearch}
@@ -78,6 +81,7 @@ class RestaurantForm extends React.Component {
                                 placeholder: 'Search Places ...',
                                 className: 'location-search-input',
                             })}
+                            // value={this.state.name}
                         />
                         <div className="autocomplete-dropdown-container">
                             {loading && <div>Loading...</div>}
@@ -111,6 +115,7 @@ class RestaurantForm extends React.Component {
             radioButtons.push(button);
         }
     
+    
 
         return (
                 <div className="menu-item-form-container">
@@ -118,14 +123,13 @@ class RestaurantForm extends React.Component {
                          <h1>create a review</h1>
                     </div>
                 <form onSubmit={this.handleSubmit} className="mi-form-container">
-                    <label>
-                        name
                         {this.renderSearch()}
-                        {/* <input type="text" onChange={this.handleChange("name")} value={this.state.name} /> */}
+                    <label>Name
+                        <input type="text" onChange={this.handleChange("name")} value={this.state.name} />
                     </label>
 
                     <label>
-                        address
+                        Address
                 {/* <AddressSearch onChange={this.handleChange} className="places-address"/> */}
                         <input type="text" onChange={this.handleChange("address")} value={this.state.address}/>
                     </label>

@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
+import { fetchUsers } from "../../util/search_api_util";
 import UserShow from "./user_show";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return {
         currentUser: state.session.user,
     };
@@ -9,6 +10,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        fetchUsers: () => dispatch(fetchUsers())
     };
 }
 

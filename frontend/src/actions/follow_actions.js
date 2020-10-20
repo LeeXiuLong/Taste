@@ -2,6 +2,13 @@ import * as FollowApiUtil from '../util/follow_api_util';
 
 export const RECEIVE_FOLLOW = "RECEIVE_FOLLOW";
 export const REMOVE_FOLLOW = "REMOVE_FOLLOW";
+export const RECEIVE_FOLLOWERS = "RECEIVE_FOLLOWERS";
+
+const receiveFollowers = (followers) => ({
+    type: RECEIVE_FOLLOWERS,
+    followers
+});
+
 
 const receiveFollow = follow => ({
     type: RECEIVE_FOLLOW,
@@ -28,3 +35,8 @@ export const deleteFollow = followId => dispatch => {
         },
             () => console.log('could not unfollow'));
 };
+
+export const fetchFollowers = (followers) => dispatch => {
+    return FollowApiUtil.fetchFollowers(followers)
+        .then(followers => { return dispatch(receiveFollowers(followers)) })
+}

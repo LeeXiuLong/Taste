@@ -20,7 +20,8 @@ class RestaurantIndex extends React.Component {
 
         if (this.props.reviews) {
             reviewsArr = Object.values(this.props.reviews)
-
+                console.log(reviewsArr)
+                console.log(this.props.reviews)
 
             let reviews = reviewsArr.map(review => {
                 return <div className="review-container" key={review._id}>
@@ -29,6 +30,12 @@ class RestaurantIndex extends React.Component {
                     </Link>
                         <h2 className="notes">{review.notes}</h2>
                     <div className="rating"><IoIosStar /> <h2 className="rating-text">{review.rating}/10</h2> </div>
+                    <div>
+                        <button type="submit">Edit
+                            {/* Link to={} */}
+                        </button>
+                        <button type="submit">Delete</button>
+                    </div>
                     </div>
 
             })

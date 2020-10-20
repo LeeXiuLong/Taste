@@ -1,11 +1,13 @@
 import * as APIUtil from '../util/session_api_util';
+import * as searchAPIUtil from '../util/search_api_util';
 import jwt_decode from 'jwt-decode';
 
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 export const RECEIVE_USER_LOGOUT = "RECEIVE_USER_LOGOUT";
 export const RECEIVE_USER_SIGN_IN = "RECEIVE_USER_SIGN_IN";
-export const CLEAR_ERRORS = 'CLEAR_ERRORS'
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const RECEIVE_USERS = "RECEIVE_USERS";
 
 export const receiveCurrentUser = currentUser => ({
     type: RECEIVE_CURRENT_USER,
@@ -29,6 +31,11 @@ export const logoutUser = () => ({
 export const clearErrors = () => ({
     type: CLEAR_ERRORS
 });
+
+export const receiveUsers = users => ({
+    type: RECEIVE_USERS,
+    users
+})
 
 export const signup = user => dispatch => (
     APIUtil.signup(user).then(res => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import keys from './config/keys';
+import * as keys from './config/keys';
 import ReactDOM from 'react-dom';
 import Root from './components/root';
 import configureStore from './store/store';
@@ -32,8 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
   window.getState = store.getState;
 
   // // Create the script tag, set the appropriate attributes
+
+
   let script = document.createElement('script');
-  script.src=`https://maps.googleapis.com/maps/api/js?key=${keys.googleApiKey}&callback=myCallbackFunc`;
+  script.src =`https://maps.googleapis.com/maps/api/js?key=${keys.googleApiKey}&libraries=places&callback=myCallbackFunc`;
+
+
   // script.defer = true;
 
   // // Attach your callback function to the `window` object
@@ -46,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
 
+  document.head.appendChild(script);
   ReactDOM.render(<Root store={store} />, root);
 });
 
@@ -59,4 +64,3 @@ document.addEventListener('DOMContentLoaded', () => {
   // };
 
   // Append the 'script' element to 'head'
-  document.head.appendChild(script);
