@@ -1,6 +1,6 @@
 .ri-container {
     width: 100%;
-    height: 1000px;
+    height: 100%;
     background-color: ghostwhite;
     display: flex;
     align-items: center;
@@ -15,6 +15,8 @@
     width: 80%;
     height: 100%;
     background-color: ghostwhite;
+    display: flex;
+    flex-direction: column;
 }
 
  h3.rest-main-h3 {

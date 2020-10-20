@@ -22,6 +22,15 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
   });
 })
 
+router.get('/search/:query', passport.authenticate('jwt', { session: false }), (req, res) => {
+  let regexp = new RegExp("^" + req.params.query.toUpperCase());
+  User.find({ name: regexp }).then(
+    users => {
+      return res.json(users.filter(user => user.id != req.user.id));
+    }
+  )
+});
+
 router.post('/register', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 

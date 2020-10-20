@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaUser, FaListUl } from 'react-icons/fa';
 import { ImSpoonKnife } from 'react-icons/im';
+import Search from "./search";
 import './navbar.scss'
 import './T.png'
 
@@ -28,6 +29,9 @@ class NavBar extends React.Component {
                         <Link to={`/${currentUser.id}/lists`}><li><FaListUl /></li></Link>
                         <Link to={`/${currentUser.id}/restaurants`}><li>< ImSpoonKnife /></li></Link>
                     </ul>
+                    <div className="search-nav">
+                        <Search />
+                    </div>
                     <Link to="/home"> <ul className="nav-mainlogo-container">
                         <li className="nav-mainlogo"></li>
                     </ul></Link>

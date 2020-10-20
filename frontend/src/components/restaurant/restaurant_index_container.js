@@ -6,8 +6,8 @@ import RestaurantIndex from './restaurant_index';
 
 const mapStateToProps = (state, ownProps) => {
     let allReviews = [];
-    if(state.entities.restaurantReviews.data){
-        allReviews = state.entities.restaurantReviews.data;
+    if(state.entities.restaurantReviews){
+        allReviews = Object.values(state.entities.restaurantReviews);
     }
     
     let thisReviews = allReviews.filter(review => {

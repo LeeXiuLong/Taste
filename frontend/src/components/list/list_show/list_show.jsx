@@ -8,7 +8,7 @@ import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } fro
 class ListShow extends React.Component {
    
     componentDidMount() {
-        this.props.fetchReviews();
+        // this.props.fetchListReviews();
         this.props.fetchCurrentList()
         .then(list => this.props.fetchListReviews(list.currentList.data._id))
     }
@@ -20,9 +20,13 @@ class ListShow extends React.Component {
     
         if (!this.props.reviews) return null;
 
-        if (this.props.reviews.data) {
-            reviewArr = Object.values(this.props.reviews.data)
-
+        if (this.props.reviews && this.props.list) {
+            reviewArr = Object.values(this.props.reviews).filter(review => {
+                return this.props.list.restaurantReviews.some(listReview => {
+                    return review._id === listReview._id;
+                })
+            })
+            
             let restaurantReviews = reviewArr.map(review => {
                 return <div className="review-container" key={review._id}>
                     <Link to={`/reviews/${review._id}`} style={{ textDecoration: 'none' }}>

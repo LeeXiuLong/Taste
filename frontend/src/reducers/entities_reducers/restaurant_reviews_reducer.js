@@ -9,7 +9,11 @@ const reviewsReducer = (state = {}, action) => {
              newState[action.review.data._id] = action.review.data;
              return newState;
         case RECEIVE_REVIEWS:
-            return Object.assign({}, state, action.reviews);
+            newState = Object.assign({}, state);
+            action.reviews.data.forEach(review => {
+                newState[review._id] = review;
+            })
+            return newState;
         case RECEIVE_CURRENT_REVIEW:
             return action.review.data;
         default:
