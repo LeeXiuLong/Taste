@@ -37,14 +37,19 @@ export const fetchUserLists = (userId) => dispatch => {
 export const createList = list => dispatch => {
     return ListApiUtil.createList(list)
         .then(list => { return dispatch(receiveList(list)) });
-}
+};
 
 export const addReviewToList = (listId, reviewId) => dispatch => {
     return ListApiUtil.addReviewToList(listId, reviewId)
         .then(list => {return dispatch(receiveList(list))})
-}
+};
 
 export const fetchCurrentList = (listId) => dispatch => {
     return ListApiUtil.fetchList(listId)
         .then(currentList => { return dispatch(receiveCurrentList(currentList)) })
-}
+};
+
+export const removeReviewFromList = (listId, reviewId) => dispatch => {
+    return ListApiUtil.removeReviewFromList(listId, reviewId)
+        .then(list => { return dispatch(receiveList(list)) })
+};

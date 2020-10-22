@@ -22,8 +22,10 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
   });
 })
 
+
 router.get('/search/:query', passport.authenticate('jwt', { session: false }), (req, res) => {
-  let regexp = new RegExp("^" + req.params.query.toUpperCase());
+  let regexp = new RegExp("^" + req.params.query, "i");
+
   User.find({ name: regexp }).then(
     users => {
       return res.json(users.filter(user => user.id != req.user.id));
@@ -123,8 +125,16 @@ router.get('/', (req, res) => {
 router.get('/:user_id', (req, res) => {
   User.findById(req.params.user_id)
     .then(user => res.json(user))
-    .catch(err => res.status(404).json({ noUser: "No such user" }))
+    .catch(err => res.status(404).json({ noUser: "No such user" }))  
 });
+
+// router.get('/:user_id/followers') {
+
+// }
+
+// router.get('/:user_id/following') {
+
+// }
 
 
 // router.post('/:user_id/follow', (req, res) => {
@@ -150,12 +160,12 @@ router.get('/:user_id', (req, res) => {
 //   })
 
 // })
-
 router.post('/:user_id/follow', //FOR POSTMAN, INPUT THE FULL BEARER TOKEN IN HEADERS -> AUTHORIZATION KEY: <BEARERTOKEN> : EXPIRES AFTER ABOUT 13 MINUTES of NON-ACTIVITY
   passport.authenticate("jwt", { session: false }), //THIS GIVES US REQ.USER WHICH IS AN ID - SEE PASSPORT.JS 
   (req, res) => {
+    
     User.findById(req.params.user_id) 
-      .then( userToFollow => {
+      .then(userToFollow => {
         if (userToFollow.followers.some(follower => follower != null && follower._id.toString() === req.user.id)) {
           return res.status(400).json({ alreadyFollowing: "You are already following this user"})
         }
@@ -178,10 +188,10 @@ router.post('/:user_id/follow', //FOR POSTMAN, INPUT THE FULL BEARER TOKEN IN HE
 
 router.patch('/:user_id/unfollow', 
   passport.authenticate("jwt", {session: false}), (req, res) => {
-    User.findById(req.params.id)
-    .then( userToUnfollow => {
-
+    User.findById(req.params.user_id)
+    .then(userToUnfollow => {
       let followers = userToUnfollow.followers;
+       
       let userIndexInFollowers = followers.findIndex(follower => follower._id.toString() === req.user.id);
 
       if (userIndexInFollowers < 0) {
@@ -205,9 +215,11 @@ router.patch('/:user_id/unfollow',
           }
           
           following.splice(unfollowedUserIdx, 1); 
-          currentUser.save().then((user) => res.json(user));
+          currentUser.save(); 
+
+          return res.json(userToUnfollow); 
         });
-    })
+     })
   }
 )
 

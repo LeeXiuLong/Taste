@@ -1,47 +1,50 @@
 import React from 'react';
-import NavBar from '../nav/navbar_container';
+import NavBar from '../../../nav/navbar_container';
 import { Link } from 'react-router-dom';
-import './list_index.scss';
+import '../../list_index.scss';
 // import { fetchUserLists } from '../../util/list_api_util';
 
-class ListIndex extends React.Component {
+class UserListIndex extends React.Component {
     constructor(props) {
         super(props);
         this.state = { name: "" }
     }
 
     componentDidMount() {
-        this.props.fetchUserLists(this.props.currentUser.id)
+        this.props.fetchUser().then(user => {
+            this.props.fetchUserLists(this.props.user.data._id)
+        })
+
     }
 
 
     render() {
 
-        const { openModal } = this.props;
+        // const { openModal } = this.props;
         let listArr;
         let allLists = [];
-        
+
         if (!this.props.lists) return null;
 
         if (this.props.lists) {
             listArr = Object.values(this.props.lists).filter(list => {
-                return list._id && list.user === this.props.currentUser.id;
+                return list._id;
             })
-            
+
 
             let lists = listArr.map(list => {
                 return <div className="list-container" key={list._id}>
-                            <Link to={`/list/${list._id}`} style={{ textDecoration: 'none' }}>
-                                <p>{list.name}</p>
-                            </Link>
-                        </div>
-                
+                    <Link to={`/lists/${list._id}`} style={{ textDecoration: 'none' }}>
+                        <p>{list.name}</p>
+                    </Link>
+                </div>
+
             })
-            
-            for(let i = 0; i < lists.length; i+= 4){
-                allLists.push(<div key={i} className="row">{lists.slice(i,i+4)}</div>)
+
+            for (let i = 0; i < lists.length; i += 4) {
+                allLists.push(<div key={i} className="row">{lists.slice(i, i + 4)}</div>)
             }
-        } 
+        }
 
         return (
             <div className="list-index-main">
@@ -51,7 +54,7 @@ class ListIndex extends React.Component {
                         <div className="list-items-container">
                             <div className="list-i-toptext">
                                 <h2 className="list-main-h2">lists</h2>
-                                <button className="list-main-button" onClick={() => openModal('list')}>+</button>
+                                {/* <button className="list-main-button" onClick={() => openModal('list')}>+</button> */}
                             </div>
                             <div className="list-subcontainer">
                                 <ul>
@@ -81,4 +84,4 @@ class ListIndex extends React.Component {
     }
 };
 
-export default ListIndex;
+export default UserListIndex;

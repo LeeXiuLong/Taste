@@ -18,7 +18,6 @@ class NavBar extends React.Component {
     }
 
     render() {
-        const { currentUser } = this.props;
         return (
             <div className="navbar-container">
                 <div className="nav-buttons-container">
@@ -26,17 +25,17 @@ class NavBar extends React.Component {
                        <Link to="/home"><div className="logo-navbar-container">
                             <li className="logo-png"></li>
                         </div></Link>
-                        <Link to={`/${currentUser.id}/lists`}><li><FaListUl /></li></Link>
-                        <Link to={`/${currentUser.id}/restaurants`}><li>< ImSpoonKnife /></li></Link>
+                        <Link to={`/mylists`}><li><FaListUl /></li></Link>
+                        <Link to={`/myrestaurants`}><li>< ImSpoonKnife /></li></Link>
+                        <div className="search-nav">
+                            <Search fetchUser={this.props.fetchUser}/>
+                        </div>
                     </ul>
-                    <div className="search-nav">
-                        <Search />
-                    </div>
                     <Link to="/home"> <ul className="nav-mainlogo-container">
                         <li className="nav-mainlogo"></li>
                     </ul></Link>
                     <ul className="right-links-nav">
-                        <Link to={`/users/${currentUser.id}`}><li><FaUser /></li></Link>
+                        <Link to={`/profile`}><li><FaUser /></li></Link>
                         <li><button onClick={(e) => this.logoutUser(e)}>log out</button></li>
                     </ul>
                 </div>

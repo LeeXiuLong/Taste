@@ -4,15 +4,11 @@ import './restaurant_show.scss';
 import { IoIosStar } from 'react-icons/io';
 
 
-class RestaurantShow extends React.Component {
+class UserRestaurantShow extends React.Component {
 
-    componentDidMount() {
+    componentDidMount(ownProps) {
         this.props.fetchCurrentReview();
         this.props.fetchMenuItems(this.props.match.params.reviewId);
-    }
-
-    componentWillUnmount(){
-        this.props.clearReviews();
     }
 
     render() {
@@ -40,7 +36,6 @@ class RestaurantShow extends React.Component {
             }
         }
 
-
         return (
             <div className="rs-main">
                 <NavBar />
@@ -48,7 +43,6 @@ class RestaurantShow extends React.Component {
                     <div className="rs-subcontainer">
                         <div className="rs-name">
                             <h1>{this.props.review.name}</h1>
-                            <button className="list-main-button" onClick={() => this.props.openModal('restaurantMenuItem')}>+</button>
                         </div>
                         <div>
                             {allMenuItems}
@@ -74,4 +68,4 @@ class RestaurantShow extends React.Component {
     }
 };
 
-export default RestaurantShow;
+export default UserRestaurantShow;

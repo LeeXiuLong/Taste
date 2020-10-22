@@ -5,21 +5,25 @@ import './home.scss';
 class Home extends React.Component {
 
     componentDidMount() {
-        this.props.fetchReviews()
+        this.props.fetchReviews();
+        this.props.closeModal();
     }
 
     render() {
         let r1, r1d, r2, r2d, r3, r3d, r4, r4d, reviewsArr;
-        const { reviews } = this.props;
+
+        const{reviews} = this.props;
+
         if (!reviews) return null;
         
-        if (reviews.data) {
-            reviewsArr = Object.values(reviews.data)
-            if (reviewsArr.length) {
-            r1 = reviewsArr[0].name; r1d = reviewsArr[0].notes; 
-            r2 = reviewsArr[1].name; r2d = reviewsArr[1].notes;
-            r3 = reviewsArr[2].name; r3d = reviewsArr[2].notes;
-            r4 = reviewsArr[3].name; r4d = reviewsArr[3].notes;
+        if (reviews) {
+            reviewsArr = Object.values(reviews)
+
+            if (reviewsArr.length > 3) {
+                r1 = reviewsArr[0].name; r1d = reviewsArr[0].notes; 
+                r2 = reviewsArr[1].name; r2d = reviewsArr[1].notes;
+                r3 = reviewsArr[2].name; r3d = reviewsArr[2].notes;
+                r4 = reviewsArr[3].name; r4d = reviewsArr[3].notes;
             }
         } 
 

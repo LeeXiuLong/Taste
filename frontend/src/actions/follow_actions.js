@@ -1,42 +1,33 @@
 import * as FollowApiUtil from '../util/follow_api_util';
+import * as SearchApiUtil from '../util/search_api_util';
 
 export const RECEIVE_FOLLOW = "RECEIVE_FOLLOW";
 export const REMOVE_FOLLOW = "REMOVE_FOLLOW";
-export const RECEIVE_FOLLOWERS = "RECEIVE_FOLLOWERS";
+export const RECEIVE_USER = "RECEIVE_USER";
 
-const receiveFollowers = (followers) => ({
-    type: RECEIVE_FOLLOWERS,
-    followers
-});
+const receiveUser = user => ({
+    type: RECEIVE_USER,
+    user
+})
 
-
-const receiveFollow = follow => ({
-    type: RECEIVE_FOLLOW,
-    follow
-});
-
-const removeFollow = follow => ({
-    type: REMOVE_FOLLOW,
-    follow
-});
-
-export const createFollow = follow => dispatch => {
-    return FollowApiUtil.createFollow(follow)
+export const createFollow = (userId) => dispatch => {
+    return FollowApiUtil.createFollow(userId)
         .then(res => {
-            dispatch(receiveFollow(res.data));
+            console.log(res);
+            return dispatch(receiveUser(res));
         },
         () => console.log('could not follow'));
 };
 
-export const deleteFollow = followId => dispatch => {
-    return FollowApiUtil.deleteFollow(followId)
+export const deleteFollow = userId => dispatch => {
+    return FollowApiUtil.deleteFollow(userId)
         .then(res => {
-            dispatch(removeFollow(res.data));
+            dispatch(receiveUser(res));
         },
             () => console.log('could not unfollow'));
 };
 
-export const fetchFollowers = (followers) => dispatch => {
-    return FollowApiUtil.fetchFollowers(followers)
-        .then(followers => { return dispatch(receiveFollowers(followers)) })
+export const fetchUser = (userId) => dispatch => {
+    return SearchApiUtil.fetchUser(userId)
+        .then(user => { return dispatch(receiveUser(user))})
 }

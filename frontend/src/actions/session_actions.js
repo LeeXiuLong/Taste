@@ -7,7 +7,7 @@ export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 export const RECEIVE_USER_LOGOUT = "RECEIVE_USER_LOGOUT";
 export const RECEIVE_USER_SIGN_IN = "RECEIVE_USER_SIGN_IN";
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
-export const RECEIVE_USERS = "RECEIVE_USERS";
+export const RECEIVE_USER = "RECEIVE_USER";
 
 export const receiveCurrentUser = currentUser => ({
     type: RECEIVE_CURRENT_USER,
@@ -32,10 +32,15 @@ export const clearErrors = () => ({
     type: CLEAR_ERRORS
 });
 
-export const receiveUsers = users => ({
-    type: RECEIVE_USERS,
-    users
-})
+export const receiveUser = user => ({
+    type: RECEIVE_USER,
+    user
+});
+
+export const fetchUser = (userId) => dispatch => {
+    return searchAPIUtil.fetchUser(userId)
+        .then(user => { return dispatch(receiveUser(user)) })
+};
 
 export const signup = user => dispatch => (
     APIUtil.signup(user).then(res => {

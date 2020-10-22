@@ -1,22 +1,55 @@
 import React from 'react';
-import NavBar from '../nav/navbar_container';
+import NavBar from '../../nav/navbar_container';
 import { Link } from 'react-router-dom';
-import './user_show.scss'
+import '../user_show.scss';
 
-class UserShow extends React.Component {
+class CurrentUserShow extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleFollow = this.handleFollow.bind(this);
+        this.handleUnfollow = this.handleUnfollow.bind(this);
+    }
 
     componentDidMount() {
-        this.props.fetchUser(this.props.userId)
+        this.props.fetchUser(this.props.userId);
+        // this.props.fetchCurrentUser(this.props.currentUser.id);
+    }
+
+    handleFollow(userId) {
+        this.props.createFollow(userId);
+    }
+
+    handleUnfollow(userId) {
+        this.props.deleteFollow(userId)
     }
 
     render() {
         const { currentUser, user } = this.props;
         if (!user) return null;
+        let name, id, followers, following, follow, unfollow;
+        let followersArr = [];
 
-        let following, followers;
-        if (user[0]) {
-            following = user[0].data.following.length;
-            followers = user[0].data.followers.length;
+        if (user.data) {
+            name = user.data.name;
+            id = user.data._id;
+            followers = user.data.followers.length;
+            following = user.data.following.length;
+            followersArr = ((user.data.followers).map(follower => (Object.values(follower)[0])));
+            let isFollowing = followersArr.includes(currentUser.id)
+
+            if (isFollowing) {
+                unfollow = (
+                    <div>
+                        <button onClick={() => this.handleUnfollow(id)}>unfollow</button>
+                    </div>
+                )
+            } else {
+                follow = (
+                    <div>
+                        <button onClick={() => this.handleFollow(id)}>follow</button>
+                    </div>
+                )
+            }
         }
 
         return (
@@ -26,11 +59,9 @@ class UserShow extends React.Component {
                     <div className="user-show-subcontainer">
                         <div className='us-header-container'>
                             <div className="us-top-left-container">
-                                <h1>{currentUser.name}</h1>
-                                <div className="user-links-containter">
-                                    <Link to={`/mylists`} style={{ textDecoration: 'none' }}><h3>lists</h3></Link>
-                                    <br/>
-                                    <Link to={`/myrestaurants`} style={{ textDecoration: 'none' }}><h3>restaurants</h3></Link>
+                                <div className="follow-button-container">
+                                <h1>{name}</h1>
+                                    {follow}{unfollow}
                                 </div>
                                 <div className="imgbg-us">
                                 </div>
@@ -46,7 +77,14 @@ class UserShow extends React.Component {
                                         <h1>{followers}</h1>
                                     </li>
                                 </ul>
+                                <br/>
+                                <div className="user-links-containter">
+                                    <Link to={`/${id}/lists`} style={{ textDecoration: 'none' }}><h3>lists</h3></Link>
+                                    <br />
+                                    <Link to={`/${id}/restaurants`} style={{ textDecoration: 'none' }}><h3>restaurants</h3></Link>
+                                </div>
                             </div>
+
                             <div className="bottom-containter">
                                 <div className="recs-header">
                                 </div>
@@ -56,8 +94,8 @@ class UserShow extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <footer className="us-footer">
-                        <div className="footer-links-us">
+                    <footer className="cus-footer">
+                        <div className="footer-links-cus">
                             <a href="https://github.com/LeeXiuLong/Taste">Repo</a>
                             <ul className="footer-git-links">
                                 <li><a href="https://github.com/LeeXiuLong/">Jourdan Ooi</a></li>
@@ -76,4 +114,4 @@ class UserShow extends React.Component {
     }
 }
 
-export default UserShow;
+export default CurrentUserShow;

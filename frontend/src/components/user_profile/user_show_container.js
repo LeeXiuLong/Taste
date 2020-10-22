@@ -1,16 +1,19 @@
 import { connect } from "react-redux";
-import { fetchUsers } from "../../util/search_api_util";
+import { fetchUser } from "../../actions/follow_actions";
 import UserShow from "./user_show";
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         currentUser: state.session.user,
+        userId: state.session.user.id,
+        followers: state.entities.follows,
+        user: Object.values(state.entities.users)
     };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps =(dispatch) => {
     return {
-        fetchUsers: () => dispatch(fetchUsers())
+        fetchUser: (userId) => dispatch(fetchUser(userId))
     };
 }
 
