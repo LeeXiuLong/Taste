@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { fetchList, fetchCurrentList, removeReviewFromList } from '../../../actions/list_actions';
 import { fetchListReviews, deleteReview} from '../../../actions/restaurant_review_actions';
 import { openModal } from '../../../actions/modal_actions';
+import { withRouter } from 'react-router-dom'
 import ListShow from './list_show';
 
 const mapStateToProps = (state, ownProps) => {

@@ -12,7 +12,7 @@ class ListShow extends React.Component {
     }
    
     componentDidMount() {
-        // this.props.fetchListReviews();
+        this.props.fetchListReviews();
         this.props.fetchCurrentList()
         .then(list => {
             this.props.fetchListReviews(list.currentList.data._id)
@@ -23,10 +23,13 @@ class ListShow extends React.Component {
     handleRemoveReview(reviewId) {
         this.props.removeReviewFromList(this.props.list._id, reviewId)
             .then(this.props.deleteReview(reviewId))
+            .then(() => {
+                this.props.fetchCurrentList();
+            })
     }
 
     // componentDidUpdate(prevProps){
-    //     if(this.props.list.restaurantReviews !== prevProps.list.restaurantReviews){
+    //     if (this.props.reviews !== prevProps.reviews){
     //         this.props.fetchCurrentList()
     //             .then(list => {
     //                 this.props.fetchListReviews(list.currentList.data._id);
