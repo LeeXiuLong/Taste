@@ -130,8 +130,9 @@ router.patch('/:list_id/reviews/:review_id/add', //ADDS REVIEW TO USER'S LIST
                     }
 
                     reviews.push(req.params.review_id)
-                    listEdit.save();
-                    return res.json(listEdit)
+                    listEdit.save().then(
+                       (list) => {return res.json(list)}
+                    )
                 }
             })
     }

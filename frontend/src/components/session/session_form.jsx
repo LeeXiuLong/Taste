@@ -23,7 +23,9 @@ class SessionForm extends React.Component {
         e.preventDefault();
         const user = Object.assign({}, this.state);
         this.props.processForm(user)
-            .then(this.props.closeModal)
+            // .then(this.props.closeModal()).catch(error => {
+            //     console.log(error);
+            // })
     }
 
     update(field) {
@@ -50,7 +52,6 @@ class SessionForm extends React.Component {
         let errorsArray = this.props.errors;
         if (this.props.errors.session) {
             errorsArray = Object.values(this.props.errors.session);
-            // console.log(errorsArray)
             errors = errorsArray.map(error => <p key={errorsArray.length - 1} className="session-errors"> {error} </p>)
         };
 
@@ -109,15 +110,6 @@ class SessionForm extends React.Component {
                 <div className="modal-formtype"><h1>{formType}</h1></div>
                 <div className="form-container">
                     <form onSubmit={this.handleSubmit} key={this.state.id}>
-                        {/* <label>
-                            <input
-                                className="login-inputs"
-                                type="text"
-                                placeholder=" full name"
-                                value={this.state.name}
-                                onChange={this.update('name')} />
-                        </label> */}
-                        {/* <br /> */}
                         <label>
                             <input
                                 className="login-inputs"

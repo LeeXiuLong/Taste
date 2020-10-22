@@ -138,3 +138,12 @@ div.modal-formtype {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-size: 10px;
 }
+
+.suggestion-item--active, .suggestion-item {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.suggestion-item--active {
+  z-index: 1;
+}

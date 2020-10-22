@@ -19,3 +19,7 @@ export const fetchLists = () => {
 export const addReviewToList = (listId, reviewId) => {
     return axios.patch(`api/lists/${listId}/reviews/${reviewId}/add`);
 }
+
+export const removeReviewFromList = (listId, reviewId) => {
+    return axios.patch(`api/lists/${listId}/reviews/${reviewId}/delete`)
+}

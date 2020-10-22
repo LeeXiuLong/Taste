@@ -1,43 +1,43 @@
 import React from 'react';
-import NavBar from '../nav/navbar_container';
+import NavBar from '../../nav/navbar_container';
 import { Link } from 'react-router-dom';
-import './restaurant_index.scss';
+import '../restaurant_index.scss';
 import { IoIosStar } from 'react-icons/io';
 
-class RestaurantIndex extends React.Component {
+class UserRestaurantIndex extends React.Component {
 
     componentDidMount() {
-        this.props.fetchUserReviews(this.props.currentUser.id)
+        this.props.fetchUserReviews(this.props.user.data._id)
     }
 
     render() {
 
         let reviewsArr;
         let allReviews = [];
+
         if (!this.props.reviews) return null;
-        
+
         if (this.props.reviews) {
             reviewsArr = Object.values(this.props.reviews)
-            console.log(this.props.reviews)
 
             let reviews = reviewsArr.map(review => {
                 return <div className="review-container" key={review._id}>
-                            <Link to={`/myreviews/${review._id}`} style={{ textDecoration: 'none' }}>
-                                <h1 className="review-name">{review.name}</h1>
-                            </Link>
-                            <h2 className="notes">{review.notes}</h2>
-                            <div className="right-review-container">
-                                <div className="rating"><IoIosStar /> <h2 className="rating-text">{review.rating}/10</h2> 
-                                </div>
-                            </div>
+                    <Link to={`/reviews/${review._id}`} style={{ textDecoration: 'none' }}>
+                        <h1 className="review-name">{review.name}</h1>
+                    </Link>
+                    <h2 className="notes">{review.notes}</h2>
+                    <div className="right-review-container">
+                        <div className="rating"><IoIosStar /> <h2 className="rating-text">{review.rating}/10</h2>
                         </div>
+                    </div>
+                </div>
 
             })
 
             for (let i = 0; i < reviews.length; i += 2) {
                 allReviews.push(<div key={i} className="row">{reviews.slice(i, i + 2)}</div>)
             }
-        } 
+        }
 
         return (
             <div className="ri-main">
@@ -45,7 +45,7 @@ class RestaurantIndex extends React.Component {
                 <div className="ri-container">
                     <div className="ri-subcontainer">
                         <div className="ri-top">
-                            <h1>your restaurants</h1>
+                            <h1>{`${this.props.user.data.name}`}'s restaurants</h1>
                         </div>
                         <div className="ri-main-left">
                         </div>
@@ -73,4 +73,4 @@ class RestaurantIndex extends React.Component {
     }
 };
 
-export default RestaurantIndex;
+export default UserRestaurantIndex;

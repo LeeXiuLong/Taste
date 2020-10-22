@@ -1,71 +1,48 @@
 import React from "react";
 import { fetchSearch } from "../../util/search_api_util";
 import SearchItem from "./search-item";
-export default class Search extends React.Component {
+
+class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchContent: "",
-            dropped: null,
+            nameQuery: "",
+            results: null,
             searchResults: null
         }
         this.updateSearch = this.updateSearch.bind(this);
-        this.handleMouseUp = this.handleMouseUp.bind(this);
-        this.handleMouseDown = this.handleMouseDown.bind(this);
-        this.closeSearch = this.closeSearch.bind(this);
     }
-    getSearchResults() {
-        fetchSearch(this.state.searchContent).then((results) => {
-            let searchResults = results.data
-            this.setState({
-                searchResults
-            })
+
+    fetchResults() {
+        fetchSearch(this.state.nameQuery).then((results) => {
+            let searchResults = results.data;
+            this.setState({ searchResults })
         })
     }
 
-    componentDidMount() {
-        document.addEventListener("mouseup", this.handleMouseUp);
-        document.addEventListener("mousedown", this.handleMouseDown);
-    }
-    componentWillUnmount() {
-        document.removeEventListener("mouseup", this.handleMouseUp);
-        document.removeEventListener("mousedown", this.handleMouseDown);
-    }
     updateSearch(e) {
-        this.setState({
-            searchContent: e.currentTarget.value
-        }, this.getSearchResults);
-    }
-
-    handleMouseUp(e) {
-        if (this.searchInput && this.searchInput.contains(e.target)) {
+        if (e.currentTarget.value !== "") {
             this.setState({
-                dropped: true
-            })
+                nameQuery: e.currentTarget.value,
+                results: true
+            }, this.fetchResults);
+        } else {
+            this.setState({
+                nameQuery: "",
+                results: null
+            }); 
         }
     }
 
-    handleMouseDown(e) {
-        if (this.searchContainer && !this.searchContainer.contains(e.target)) {
-            this.setState({
-                dropped: null
-            })
-        }
-    }
-
-    closeSearch(e) {
-        this.setState({
-            dropped: null
-        })
-    }
-
-    allSearchResults() {
+    searchResults() {
         if (this.state.searchResults) {
             return Object.values(this.state.searchResults).map(searchResult => {
                 return <SearchItem
                     key={`${searchResult._id}`}
                     searchResult={searchResult}
-                    searchQuery={this.state.searchContent} />
+                    searchInput={this.state.nameQuery} 
+                    fetchUser = {this.props.fetchUser}
+                    />
             })
         } else {
             return null;
@@ -74,30 +51,23 @@ export default class Search extends React.Component {
 
     render() {
         return (
-            <div className={`${this.state.dropped ? "dropped" : ""} search-container`} ref={node => this.searchContainer = node}>
+            <div ref={node => this.searchContainer = node}>
                 <div className="header-search-container">
-                    <div className={`${this.state.dropped ? "" : "hidden"} back-arrow`}>
-                        <i onClick={this.closeSearch} className="fas fa-arrow-left" />
-                    </div>
-
                     <div className="search-bar">
                         <input
                             ref={node => this.searchInput = node}
+                            value={this.state.nameQuery} 
                             onChange={this.updateSearch}
                             type="input"
-                            placeholder="search"
-                            value={this.state.searchContent} />
-                        <div className="search-icon">
-                            <i className="fas fa-search" />
-                        </div>
+                            placeholder="search" />
                     </div>
                 </div>
-
-                <ul className={`${this.state.dropped ? "" : "hidden"} search-results-list`}>
-                    {this.allSearchResults()}
+                <ul className={`${this.state.results ? "" : "hidden-"}search-results-list`}>
+                    {this.searchResults()}
                 </ul>
             </div>
         )
     }
+};
 
-}
+export default Search;

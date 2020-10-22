@@ -1,9 +1,7 @@
 import React from 'react';
-import '../../modal/modal.scss'
-// import './restaurant_form.scss';
-import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from 'react-places-autocomplete';
-// import { googleApiKey } from '../../../config/keys_prod';
-import * as keys from '../../../config/keys';
+import '../../modal/modal.scss';
+import './restaurant_form';
+import PlacesAutocomplete, { geocodeByAddress} from 'react-places-autocomplete';
 
 
 
@@ -32,7 +30,6 @@ class RestaurantForm extends React.Component {
         e.preventDefault();
         if (this.props.listId) {
             this.props.createReview(this.state).then(review => {
-                console.log(review);
                 this.props.addReviewToList(this.props.listId, review.review.data._id)
             })
                 .then(this.props.closeModal());
@@ -78,7 +75,7 @@ class RestaurantForm extends React.Component {
                     <div>
                         <input
                             {...getInputProps({
-                                placeholder: 'Search Places ...',
+                                placeholder: 'Search Restaurants...',
                                 className: 'location-search-input',
                             })}
                             // value={this.state.name}
