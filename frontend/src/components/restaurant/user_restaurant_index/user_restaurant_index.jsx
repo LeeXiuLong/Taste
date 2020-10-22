@@ -15,7 +15,7 @@ class UserRestaurantIndex extends React.Component {
         let reviewsArr;
         let allReviews = [];
 
-        if (!this.props.reviews) return null;
+        if (!this.props.reviews || !this.props.user) return null;
 
         if (this.props.reviews) {
             reviewsArr = Object.values(this.props.reviews)

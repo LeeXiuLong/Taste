@@ -41,7 +41,7 @@ export const createList = list => dispatch => {
 
 export const addReviewToList = (listId, reviewId) => dispatch => {
     return ListApiUtil.addReviewToList(listId, reviewId)
-        .then(list => {return dispatch(receiveList(list))})
+        .then(list => {return dispatch(receiveCurrentList(list))})
 };
 
 export const fetchCurrentList = (listId) => dispatch => {
