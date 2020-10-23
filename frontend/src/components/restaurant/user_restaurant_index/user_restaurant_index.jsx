@@ -6,8 +6,19 @@ import { IoIosStar } from 'react-icons/io';
 
 class UserRestaurantIndex extends React.Component {
 
+    // componentDidUpdate(prevProps) {
+    //     if ((prevProps.user.data._id) !== (this.props.user.data._id)) {
+    //         this.props.fetchUser(this.props.user.data._id)
+    //     }
+    // }
+
     componentDidMount() {
-        this.props.fetchUserReviews(this.props.user.data._id)
+        // debugger
+        this.props.fetchUserReviews(this.props.userId)
+        .then(() => {
+            this.props.fetchUser(this.props.userId);
+        });
+
     }
 
     render() {
@@ -15,6 +26,7 @@ class UserRestaurantIndex extends React.Component {
         let reviewsArr;
         let allReviews = [];
 
+        debugger
         if (!this.props.reviews || !this.props.user) return null;
 
         if (this.props.reviews) {
