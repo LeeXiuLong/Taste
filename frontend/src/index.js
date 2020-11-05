@@ -41,9 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // script.defer = true;
 
   // // Attach your callback function to the `window` object
-  // window.myCallbackFunc = function () {
-  //   // JS API is loaded and available
-  // };
+  window.myCallbackFunc = function () {
+    // JS API is loaded and available
+  };
 
   // // Append the 'script' element to 'head'
   // document.head.appendChild(script);
